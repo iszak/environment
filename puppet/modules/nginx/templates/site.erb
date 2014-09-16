@@ -1,65 +1,29 @@
 server {
-    <% if @host %>
-    listen <%= @host %><%= ":#{@port}" if @port %> <% if @default_server %> default_server<% end %><% if @ipv6_only %> ipv6only=on<% end %>;
+    <% if @host_param %>
+    listen <%= @host_param %><%= ":#{@port_param}" if @port_param %> <% if @default_server_param %> default_server<% end %><% if @ipv_param6_only %> ipv6only=on<% end %>;
     <% end %>
 
-    <% if @root %>
-    root <%= @root %>;
+    <% if @root_param %>
+    root <%= @root_param %>;
     <% end %>
 
-    <% if @index %>
-    index <%= @index.join(' ') %>;
+    <% if @index_param %>
+    index <%= @index_param.join(' ') %>;
     <% end %>
 
-    <% if @server_name %>
-    server_name <%= @server_name %>;
+    <% if @server_name_param %>
+    server_name <%= @server_name_param %>;
     <% end %>
 
-    <% @locations.each do |location| %>
-    location <%= location[:route] %> {
-        # First attempt to serve request as file, then
-        # as directory, then fall back to displaying a 404.
-        <% if location[:try_files] %>
-        try_files <%= location[:try_files] %>;
+    <% @locations_param.each_pair do |location, values| %>
+    location <%= location %> {
+        <% values.each_pair do |key, value| %>
+        <%= key %> <%= value %>;
         <% end %>
-        try_files $uri $uri/ =404
-
-        <% if location[:proxy_pass] %>
-        proxy_pass <%= location[:proxy_pass] %>;
-        <% end %>
-        # Uncomment to enable naxsi on this location
-        # include /etc/nginx/naxsi.rules
     }
     <% end %>
 
-
-    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-    #location /RequestDenied {
-    #   proxy_pass http://127.0.0.1:8080;
-    #}
-
-    <% @error_pages.each do |error_page| %>
+    <% @error_pages_param.each do |error_page| %>
     error_page <%= error_page %>;
     <% end %>
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #   fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    #   # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-    #
-    #   # With php5-cgi alone:
-    #   fastcgi_pass 127.0.0.1:9000;
-    #   # With php5-fpm:
-    #   fastcgi_pass unix:/var/run/php5-fpm.sock;
-    #   fastcgi_index index.php;
-    #   include fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #   deny all;
-    #}
 }

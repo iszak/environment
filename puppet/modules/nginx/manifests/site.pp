@@ -68,28 +68,77 @@ define nginx::site (
   $locations       = $::nginx::params::locations,
   $error_pages     = $::nginx::params::error_pages,
 ) {
-  if defined(Class['nginx']) == false {
-    fail('You must include the nginx base class')
+  include nginx::params
+
+  $owner_param = $owner ? {
+    undef   => $::nginx::params::owner,
+    default => $owner,
   }
 
-  $sites_enabled_path   = "${sites_enabled}/${name}"
-  $sites_available_path = "${sites_available}/${name}"
+  $group_param = $group ? {
+    undef   => $::nginx::params::group,
+    default => $group,
+  }
+
+  $sites_enabled_param = $sites_enabled ? {
+    undef   => $::nginx::params::sites_enabled,
+    default => $sites_enabled,
+  }
+
+  $sites_available_param = $sites_available ? {
+    undef   => $::nginx::params::sites_available,
+    default => $sites_available,
+  }
+
+  $host_param = $host ? {
+    undef   => $::nginx::params::host,
+    default => $host,
+  }
+
+  $port_param = $port ? {
+    undef   => $::nginx::params::port,
+    default => $port,
+  }
+
+  $index_param = $index ? {
+    undef   => $::nginx::params::index,
+    default => $index,
+  }
+
+  $ipv6_only_param = $ipv6_only ? {
+    undef   => $::nginx::params::ipv6_only,
+    default => $ipv6_only,
+  }
+
+  $locations_param = $locations ? {
+    undef   => $::nginx::params::locations,
+    default => $locations,
+  }
+
+  $error_pages_param = $error_pages ? {
+    undef   => $::nginx::params::error_pages,
+    default => $error_pages,
+  }
+
+
+  $sites_enabled_path   = "${sites_enabled_param}/${name}"
+  $sites_available_path = "${sites_available_param}/${name}"
 
 
 
   file { $sites_available_path:
     ensure  => present,
     content => template('nginx/site.erb'),
-    owner   => $owner,
-    group   => $group,
-    require => File[$sites_available],
+    owner   => $owner_param,
+    group   => $group_param,
+    require => File[$sites_available_param],
   }
 
   file { $sites_enabled_path:
     ensure  => link,
     target  => $sites_available_path,
     require => [
-      File[$sites_available],
+      File[$sites_available_param],
       File[$sites_available_path]
     ],
   }

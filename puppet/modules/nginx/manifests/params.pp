@@ -7,8 +7,8 @@
 #  class { 'nginx::params': }
 #
 class nginx::params {
-  $owner = 'root'
-  $group = 'root'
+  $owner           = 'root'
+  $group           = 'root'
 
   $sites_enabled   = '/etc/nginx/sites-enabled/'
   $sites_available = '/etc/nginx/sites-available/'
@@ -21,9 +21,14 @@ class nginx::params {
   $port            = 80
 
   $index           = ['index.html', 'index.htm']
-  $locations       = [
-    # $uri $uri/ =404
-  ]
+  $locations       = {
+    '/' => {
+      try_files => '$uri $uri/ =404'
+    },
+    '~ /\.ht' => {
+      deny => 'all'
+    }
+  }
   $error_pages = [
     '404 /404.html'
   ]
