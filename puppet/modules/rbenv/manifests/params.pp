@@ -1,6 +1,6 @@
 # == Class: rbenv::params
 #
-# A class to configure rbenv
+# A class to set the default parameters of rbenv
 #
 # === Examples
 #

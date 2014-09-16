@@ -15,20 +15,31 @@
 #  class { 'ruby_build': }
 #
 class ruby_build (
-  $download_path  = $::ruby_build::params::download_path,
-  $repository_url = $::ruby_build::params::repository_url
-) inherits ::ruby_build::params {
+  $download_path  = undef,
+  $repository_url = undef
+) {
+  include ruby_build::params
   include git
+
+  $download_path_param = $download_path ? {
+    undef   => $::ruby_build::params::download_path,
+    default => $download_path,
+  }
+
+  $repository_url_param = $repository_url ? {
+    undef   => $::ruby_build::params::repository_url,
+    default => $repository_url,
+  }
+
 
   exec { 'git clone ruby-build':
     require => Package['git'],
-    command =>
-      "${::git::params::bin_path} clone ${repository_url} ${download_path}",
-    creates => $download_path
+    command => "${::git::params::bin_path} clone ${repository_url_param} ${download_path_param}",
+    creates => $download_path_param
   }
 
   exec { 'install ruby-build':
     require => Exec['git clone ruby-build'],
-    command => "/bin/sh ${download_path}/install.sh"
+    command => "/bin/sh ${download_path_param}/install.sh"
   }
 }

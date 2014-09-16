@@ -1,6 +1,6 @@
 # == Class: nginx::params
 #
-# A class to configure nginx
+# A class to set the default parameters of nginx
 #
 # === Examples
 #
@@ -13,7 +13,7 @@ class nginx::params {
   $sites_enabled   = '/etc/nginx/sites-enabled/'
   $sites_available = '/etc/nginx/sites-available/'
 
-  $default_site    = true
+  $default_site    = false
 
   $ipv6_only       = true
 

@@ -15,15 +15,26 @@
 #  class { 'rbenv': }
 #
 class rbenv (
-    $download_path  = $::rbenv::params::download_path,
-    $repository_url = $::rbenv::params::repository_url
-) inherits ::rbenv::params {
-    include git
+  $download_path  = undef,
+  $repository_url = undef
+) {
+  include rbenv::params
+  include git
 
-    exec { 'git clone rbenv':
-        require => Package['git'],
-        command =>
-          "${::git::params::bin_path} clone ${repository_url} ${download_path}",
-        creates => $download_path
-    }
+  $download_path_param = $download_path ? {
+    undef   => $::rbenv::params::download_path,
+    default => $download_path,
+  }
+
+  $repository_url_param = $repository_url ? {
+    undef   => $::rbenv::params::repository_url,
+    default => $repository_url,
+  }
+
+
+  exec { 'git clone rbenv':
+    require => Package['git'],
+    command => "${::git::params::bin_path} clone ${repository_url_param} ${download_path_param}",
+    creates => $download_path_param
+  }
 }

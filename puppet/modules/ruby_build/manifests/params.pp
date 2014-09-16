@@ -1,6 +1,6 @@
 # == Class: ruby_build::params
 #
-# A class to configure ruby build
+# A class to set the default parameters of ruby build
 #
 # === Examples
 #

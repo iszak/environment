@@ -1,6 +1,6 @@
 # == Class: git::params
 #
-# A class to configure git
+# A class to set the default parameters of git
 #
 # === Examples
 #

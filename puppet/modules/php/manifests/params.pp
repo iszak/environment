@@ -1,6 +1,6 @@
 # == Class: php::params
 #
-# A class to configure php
+# A class to set the default parameters of php
 #
 # === Examples
 #
