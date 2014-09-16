@@ -1,25 +1,46 @@
 server {
-    listen <%= @host %>:<%= @port %> <% if @default_server %> default_server<% end %><% if @ipv6_only %> ipv6only=on<% end %>;
+    <% if @host %>
+    listen <%= @host %><%= if @port ":#{@port}" %> <% if @default_server %> default_server<% end %><% if @ipv6_only %> ipv6only=on<% end %>;
+    <% end %>
 
+    <% if @root %>
     root <%= @root %>;
+    <% end %>
+
+    <% if @index %>
     index <%= @index.join(' ') %>;
+    <% end %>
 
-    # Make site accessible from http://localhost/
+    <% if @server_name %>
     server_name <%= @server_name %>;
+    <% end %>
 
-    location / {
+    <% @locations.each do |location| %>
+    location <%= location[:route] %> {
         # First attempt to serve request as file, then
         # as directory, then fall back to displaying a 404.
-        try_files $uri $uri/ =404;
+        <% if location[:try_files] %>
+        try_files <%= location[:try_files] %>;
+        <% end %>
+        try_files $uri $uri/ =404
+
+        <% if location[:proxy_pass] %>
+        proxy_pass <%= location[:proxy_pass] %>;
+        <% end %>
         # Uncomment to enable naxsi on this location
         # include /etc/nginx/naxsi.rules
     }
+    <% end %>
+
 
     # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
     #location /RequestDenied {
     #   proxy_pass http://127.0.0.1:8080;
     #}
 
+    <% if location[:error_page] %>
+    error_page <%= location[:error_page] %>;
+    <% end %>
     #error_page 404 /404.html;
 
     # redirect server error pages to the static page /50x.html
