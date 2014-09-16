@@ -66,6 +66,7 @@ define nginx::site (
   $ipv6_only       = $::nginx::params::ipv6_only,
 
   $locations       = $::nginx::params::locations,
+  $error_pages     = $::nginx::params::error_pages,
 ) {
   if defined(Class['nginx']) == false {
     fail('You must include the nginx base class')
