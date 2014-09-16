@@ -4,14 +4,13 @@
 #
 # === Examples
 #
-#  class { 'rbenv::config': }
+#  rbenv::config { "iszak" }
 #
-define rbenv::config (
-  $download_path   = $::rbenv::params::download_path,
-  $repository_path = $::rbenv::params::repository_url
-) inherits ::rbenv::params {
+define rbenv::config () {
+  include rbenv::params
+
   exec { 'install rbenv':
     require => Package['git'],
-    command => "/bin/echo 'export PATH=\"${download_path}/bin:\$PATH\"'"
+    command => "/bin/echo 'export PATH=\"${::rbenv::params::download_path}/bin:\$PATH\"'"
   }
 }
