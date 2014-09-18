@@ -1,10 +1,11 @@
 node default {
   stage { 'init':
-    before  => Stage['main']
+    before => Stage['main']
   }
 
   class { 'apt':
-    stage => init
+    stage         => init,
+    always_update => false
   }
 
   class { 'nginx':
