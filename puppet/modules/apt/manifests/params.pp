@@ -7,6 +7,8 @@
 #  class { 'apt::params': }
 #
 class apt::params {
-  $update  = 'always'
-  $upgrade = 'once'
+  $update              = 'always'
+  $upgrade             = 'once'
+
+  $unattended_upgrades = true
 }

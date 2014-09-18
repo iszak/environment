@@ -10,13 +10,18 @@
 # [*upgrade*]
 #   The mode to run apt-get upgrade, options are never, always, once
 #
+# [*unattended_upgrades]
+#   Whether to install upgrades unattended periodically
+#
 # === Examples
 #
 #  class { 'apt': }
 #
 class apt (
-  $update  = undef,
-  $upgrade = undef
+  $update              = undef,
+  $upgrade             = undef,
+
+  $unattended_upgrades = undef
 ) {
   include apt::params
 
@@ -28,6 +33,11 @@ class apt (
   $upgrade_param = $upgrade ? {
     undef   => $::apt::params::upgrade,
     default => $upgrade,
+  }
+
+  $unattended_upgrades_param = $unattended_upgrades ? {
+    undef   => $::apt::params::unattended_upgrades,
+    default => $unattended_upgrades,
   }
 
 
@@ -81,5 +91,19 @@ class apt (
     }
 
     Exec['apt-get upgrade'] -> Package <| |>
+  }
+
+
+  if $unattended_upgrades_param == true {
+    file { 'auto upgrades':
+      ensure  => present,
+      path    => '/etc/apt/apt.conf.d/20auto-upgrades',
+      content => template('apt/auto-upgrades.erb')
+    }
+
+    file { '/etc/apt/apt.conf.d/50unattended-upgrades':
+      ensure  => present,
+      content => template('apt/unattended-upgrades.erb')
+    }
   }
 }
