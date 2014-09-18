@@ -5,10 +5,10 @@
 # === Parameters
 #
 # [*package_prefix*]
-#   The package prefix to use, default is php5-
+#   The package prefix to use
 #
 # [*implementation*]
-#   The implement of PHP to use, default is FPM
+#   The implement of PHP to use
 #
 # === Examples
 #
