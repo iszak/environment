@@ -4,8 +4,7 @@ node default {
   }
 
   class { 'apt':
-    stage         => init,
-    always_update => false
+    stage => init
   }
 
   class { 'nginx':

@@ -7,7 +7,6 @@
 #  class { 'apt::params': }
 #
 class apt::params {
-  $always_update  = true
-  $always_upgrade = true
-  $upgrade_once   = true
+  $update  = 'always'
+  $upgrade = 'once'
 }
