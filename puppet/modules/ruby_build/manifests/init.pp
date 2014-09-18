@@ -4,10 +4,10 @@
 #
 # === Parameters
 #
-# [*download_path*]
-#   The path to download ruby-build to, default is /tmp/ruby-build
+# [*install_path*]
+#   The path to install ruby-build to, default is /usr/local/rbenv/plugins/ruby-build
 #
-# [*repository_path*]
+# [*repository_url*]
 #   The url to the repository, default is https://github.com/sstephenson/ruby-build.git
 #
 # === Examples
@@ -15,15 +15,15 @@
 #  class { 'ruby_build': }
 #
 class ruby_build (
-  $download_path  = undef,
+  $install_path  = undef,
   $repository_url = undef
 ) {
   include ruby_build::params
   include git
 
-  $download_path_param = $download_path ? {
-    undef   => $::ruby_build::params::download_path,
-    default => $download_path,
+  $install_path_param = $install_path ? {
+    undef   => $::ruby_build::params::install_path,
+    default => $install_path,
   }
 
   $repository_url_param = $repository_url ? {
@@ -31,15 +31,27 @@ class ruby_build (
     default => $repository_url,
   }
 
+  package { [
+    'autoconf',
+    'bison',
+    'build-essential',
+    'libssl-dev',
+    'libyaml-dev',
+    'libreadline6-dev',
+    'zlib1g-dev',
+    'libncurses5-dev'
+  ]:
+    ensure => latest
+  }
 
   exec { 'git clone ruby-build':
     require => Package['git'],
-    command => "${::git::params::bin_path} clone ${repository_url_param} ${download_path_param}",
-    creates => $download_path_param
+    command => "${::git::params::bin_path} clone ${repository_url_param} ${install_path_param}",
+    creates => $install_path_param
   }
 
   exec { 'install ruby-build':
     require => Exec['git clone ruby-build'],
-    command => "/bin/sh ${download_path_param}/install.sh"
+    command => "/bin/sh ${install_path_param}/install.sh"
   }
 }

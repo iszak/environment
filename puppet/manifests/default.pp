@@ -20,21 +20,34 @@ node default {
   class { 'zsh':
   }
 
+  zsh::config { 'vagrant':
+    require => Class['zsh']
+  }
+
 
   class { 'php':
     implementation => 'fpm'
   }
 
-  zsh::config { 'vagrant':
-
-  }
 
   class { 'rbenv':
 
   }
 
-  class { 'ruby_build':
+  rbenv::config { 'vagrant':
+    require => Class['rbenv']
+  }
 
+  rbenv::install { '2.1.0':
+    require => [
+      Class['rbenv'],
+      Class['ruby_build']
+    ]
+  }
+
+
+  class { 'ruby_build':
+    require => Class['rbenv']
   }
 
 

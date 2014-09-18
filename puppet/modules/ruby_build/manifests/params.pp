@@ -7,6 +7,9 @@
 #  class { 'ruby_build::params': }
 #
 class ruby_build::params {
-  $download_path  = '/tmp/ruby-build'
-  $repository_url = 'https://github.com/sstephenson/ruby-build.git'
+  $install_path     = '/usr/local/rbenv/plugins/ruby-build'
+  $repository_url   = 'https://github.com/sstephenson/ruby-build.git'
+
+  $destination_path = '/usr/local/rbenv/versions'
+  $install_timeout  = 1200
 }

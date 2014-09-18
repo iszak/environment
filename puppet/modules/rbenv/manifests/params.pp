@@ -7,6 +7,6 @@
 #  class { 'rbenv::params': }
 #
 class rbenv::params {
-    $download_path  = '/tmp/rbenv'
+    $install_path   = '/usr/local/rbenv'
     $repository_url = 'https://github.com/sstephenson/rbenv.git'
 }
