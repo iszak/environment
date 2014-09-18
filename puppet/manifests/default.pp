@@ -1,36 +1,44 @@
 node default {
-    class { 'nginx':
+  stage { 'init':
+    before  => Stage['main']
+  }
 
-    }
+  class { 'apt':
+    stage => init
+  }
 
-    nginx::site { 'test':
-        require     => Class['nginx'],
-        server_name => 'localhost',
-        root        => '/usr/share/nginx/html',
-    }
+  class { 'nginx':
 
-    class { 'zsh':
-    }
+  }
 
+  nginx::site { 'test':
+    require     => Class['nginx'],
+    server_name => 'localhost',
+    root        => '/usr/share/nginx/html',
+  }
 
-    class { 'php':
-        implementation => 'fpm'
-    }
-
-    zsh::config { 'vagrant':
-
-    }
-
-    class { 'rbenv':
-
-    }
-
-    class { 'ruby_build':
-
-    }
+  class { 'zsh':
+  }
 
 
-    package { 'language-pack-en':
-        ensure => latest
-    }
+  class { 'php':
+    implementation => 'fpm'
+  }
+
+  zsh::config { 'vagrant':
+
+  }
+
+  class { 'rbenv':
+
+  }
+
+  class { 'ruby_build':
+
+  }
+
+
+  package { 'language-pack-en':
+    ensure => latest
+  }
 }
