@@ -38,6 +38,7 @@ define ruby_build::install (
 
   exec { "${name} install":
     command => "${::ruby_build::params::install_path}/bin/ruby-build ${version} ${destination_param}",
-    timeout => $timeout_param
+    timeout => $timeout_param,
+    creates => $destination_param
   }
 }

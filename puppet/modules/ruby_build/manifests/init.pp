@@ -5,10 +5,10 @@
 # === Parameters
 #
 # [*install_path*]
-#   The path to install ruby-build to, default is /usr/local/rbenv/plugins/ruby-build
+#   The path to install ruby build to
 #
 # [*repository_url*]
-#   The url to the repository, default is https://github.com/sstephenson/ruby-build.git
+#   The url to the repository
 #
 # === Examples
 #

@@ -11,5 +11,5 @@ class ruby_build::params {
   $repository_url   = 'https://github.com/sstephenson/ruby-build.git'
 
   $destination_path = '/usr/local/rbenv/versions'
-  $install_timeout  = 1200
+  $install_timeout  = 900
 }
