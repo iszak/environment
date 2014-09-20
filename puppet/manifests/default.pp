@@ -31,6 +31,10 @@ node default {
     implementation => 'fpm'
   }
 
+  php::module { 'intl':
+    require => Class['php']
+  }
+
 
   class { 'rbenv': }
   class { 'rbenv::update': }
