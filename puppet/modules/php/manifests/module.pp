@@ -9,7 +9,7 @@
 #  php::module { 'gd': }
 #
 define php::module (
-  $package_prefix = 'php5-'
+  $package_prefix = undef
 ) {
   include php::params
 
