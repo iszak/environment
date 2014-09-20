@@ -6,8 +6,12 @@
 #
 # === Examples
 #
-#  php::ini { 'gd': }
+#  php::ini { 'gd':
+#    jpeg_ignore_warning => 1
+#  }
 #
-define php::lodule () {
+define php::ini (
+
+) {
   include php::params
 }
