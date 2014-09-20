@@ -44,8 +44,12 @@ class ruby_build (
     ensure => latest
   }
 
+  file { $install_path_param:
+    ensure => directory
+  }
+
   exec { 'git clone ruby_build':
-    require => Package['git'],
+    require => File[$install_path_param],
     command => "${::git::params::bin_path} clone ${repository_url_param} ${install_path_param}",
     creates => $install_path_param
   }
