@@ -5,10 +5,10 @@
 # === Parameters
 #
 # [*install_path*]
-#   The path to install rbenv to, default is /usr/local/rbenv
+#   The path to install rbenv to
 #
 # [*repository_url*]
-#   The url to the repository, default is https://github.com/sstephenson/rbenv.git
+#   The url to the repository
 #
 # === Examples
 #
