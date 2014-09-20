@@ -3,71 +3,66 @@ node default {
     before => Stage['main']
   }
 
+  # Apt
   class { 'apt':
     stage => init
   }
 
-  class { 'nginx':
-
-  }
-
-  class { 'memcached':
-
-  }
+  # Nginx
+  class { 'nginx': }
 
   nginx::site { 'test':
     server_name => 'localhost',
     root        => '/usr/share/nginx/html',
   }
 
-  class { 'zsh':}
-
-  zsh::config { 'vagrant':
-    require => Class['zsh']
-  }
+  # Zsh
+  class { 'zsh': }
 
 
+  # PHP
   class { 'php':
     implementation => 'fpm'
   }
 
-  php::module { 'intl':
-    require => Class['php']
-  }
+  php::module { 'intl': }
 
 
+  # Ruby
   class { 'rbenv': }
   class { 'rbenv::update': }
 
-  rbenv::config { 'vagrant':
-    require => [
-      Class['rbenv'],
-      zsh::config['vagrant']
-    ]
-  }
-
-  rbenv::install { '2.1.2':
-    require => [
-      Class['rbenv'],
-      Class['ruby_build']
-    ]
-  }
+  # rbenv::install { '2.1.2': }
 
 
-  class { 'ruby_build':
-    require => Class['rbenv']
-  }
+  class { 'ruby_build': }
+
   class { 'ruby_build::update': }
 
   ruby::gem { 'bundler': }
 
-  package { 'language-pack-en':
-    ensure => latest
+
+
+  # Iszak user
+  user { 'iszak':
+    require    => Class['zsh'],
+    ensure     => present,
+    managehome => true,
+    shell      => '/bin/zsh'
   }
 
-  class { 'sudoers': }
+  zsh::config { 'iszak':
+    require => User['iszak'],
+  }
 
   sudoers::config { 'iszak':
-    custom => 'iszak ALL=(ALL) NOPASSWD:ALL'
+    require => User['iszak'],
+    custom  => 'iszak ALL=(ALL) NOPASSWD:ALL'
+  }
+
+
+  # Miscellaneous
+  package { 'language-pack-en':
+    ensure => latest
   }
 }
