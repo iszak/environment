@@ -1,0 +1,5 @@
+<% if @custom_param %>
+<%= @custom_param %>
+<% else %>
+<%= @user_param %> <%= @hosts_param.join(',') %>=<%= @run_as_param.join(',') %>:<%= @commands_param.join(',') %>
+<% end %>
