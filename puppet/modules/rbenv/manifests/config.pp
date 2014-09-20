@@ -18,10 +18,7 @@ define rbenv::config (
   $bash = true,
   $zsh  = false
 ) {
-  if defined('rbenv') == false {
-    fail('rbenv::config requires the rbenv class')
-  }
-
+  include rbenv
   include rbenv::params
 
   # Bash
