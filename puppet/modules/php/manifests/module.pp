@@ -11,6 +11,7 @@
 define php::module (
   $package_prefix = undef
 ) {
+  include php
   include php::params
 
   $package_prefix_param = $package_prefix ? {

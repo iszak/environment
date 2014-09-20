@@ -14,6 +14,7 @@
 class rbenv::update (
   $install_path  = undef
 ) {
+  include rbenv
   include rbenv::params
   include git
 

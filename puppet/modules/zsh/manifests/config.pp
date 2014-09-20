@@ -11,6 +11,8 @@ define zsh::config (
   $group = $title,
   $path = "/home/${title}/.zshrc"
 ) {
+  include zsh
+
   file { $path:
     ensure  => present,
     content => template('zsh/config.erb'),

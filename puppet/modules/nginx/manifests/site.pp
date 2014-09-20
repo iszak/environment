@@ -68,6 +68,7 @@ define nginx::site (
   $locations       = $::nginx::params::locations,
   $error_pages     = $::nginx::params::error_pages,
 ) {
+  include nginx
   include nginx::params
 
   $owner_param = $owner ? {

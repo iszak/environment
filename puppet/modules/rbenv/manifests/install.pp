@@ -18,14 +18,9 @@ define rbenv::install (
   $destination = undef,
   $timeout     = undef
 ) {
-  if defined('rbenv') == false {
-    fail('rbenv::install requires the rbenv class')
-  }
+  include ruby_build
 
-  if defined('ruby_build') == false {
-    fail('rbenv::install requires the ruby_build class')
-  }
-
+  include rbenv
   include rbenv::params
 
   ruby_build::install { $name:

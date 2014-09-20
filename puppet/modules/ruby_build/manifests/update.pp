@@ -14,8 +14,9 @@
 class ruby_build::update (
   $install_path  = undef
 ) {
-  include ruby_build::params
   include git
+  include ruby_build
+  include ruby_build::params
 
   $install_path_param = $install_path ? {
     undef   => $::ruby_build::params::install_path,

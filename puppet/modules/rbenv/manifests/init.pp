@@ -18,8 +18,8 @@ class rbenv (
   $install_path  = undef,
   $repository_url = undef
 ) {
-  include rbenv::params
   include git
+  include rbenv::params
 
   $install_path_param = $install_path ? {
     undef   => $::rbenv::params::install_path,

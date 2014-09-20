@@ -39,6 +39,7 @@ define sudoers::config (
   $sudoers_file = undef,
   $sudoers_dir  = undef
 ) {
+  include sudoers
   include sudoers::params
 
   if $user == undef {
