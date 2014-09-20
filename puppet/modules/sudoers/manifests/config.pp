@@ -17,7 +17,7 @@
 #   The command the user can run
 #
 # [*custom*]
-#   A custom rule
+#   A custom fragment
 #
 # [*sudoers_file*]
 #   The path to the sudoers file
