@@ -53,8 +53,7 @@ class apt (
   }
 
   # Run apt-get update
-  if $update_param == 'once' or
-     $update_param == 'always' {
+  if $update_param == 'once' or $update_param == 'always' {
     exec { 'apt-get update':
       command     => '/usr/bin/apt-get update',
       refreshonly => ($update_param == 'once')
@@ -82,8 +81,7 @@ class apt (
   }
 
   # Run apt-get upgrade
-  if $upgrade_param == 'once' or
-     $upgrade_param == 'always' {
+  if $upgrade_param == 'once' or $upgrade_param == 'always' {
     exec { 'apt-get upgrade':
       require     => $upgrade_require,
       command     => '/usr/bin/apt-get upgrade --yes',

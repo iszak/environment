@@ -12,14 +12,14 @@
 #
 # === Examples
 #
-#  ruby_build::install { "2.0.0": }
+#  ruby_build::install { '2.1.2': }
 #
 define ruby_build::install (
   $destination = undef,
   $timeout     = undef
 ) {
   if defined('ruby_build') == false {
-    fail("ruby_build::install requires the ruby_build class")
+    fail('ruby_build::install requires the ruby_build class')
   }
 
   $version = $name

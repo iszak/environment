@@ -28,6 +28,6 @@ class rbenv::update (
       Package['git'],
     ],
     command => "${::git::params::bin_path} pull",
-    cwd     => "${install_path_param}"
+    cwd     => $install_path_param
   }
 }

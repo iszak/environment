@@ -12,14 +12,14 @@
 #
 # === Examples
 #
-#  rbenv::config { "iszak" }
+#  rbenv::config { 'iszak' }
 #
 define rbenv::config (
   $bash = true,
   $zsh  = false
 ) {
   if defined('rbenv') == false {
-    fail("rbenv::config requires the rbenv class")
+    fail('rbenv::config requires the rbenv class')
   }
 
   include rbenv::params

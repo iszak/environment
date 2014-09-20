@@ -12,23 +12,23 @@
 #
 # === Examples
 #
-#  rbenv::install { "2.0.0": }
+#  rbenv::install { '2.1.2': }
 #
 define rbenv::install (
   $destination = undef,
   $timeout     = undef
 ) {
   if defined('rbenv') == false {
-    fail("rbenv::install requires the rbenv class")
+    fail('rbenv::install requires the rbenv class')
   }
 
   if defined('ruby_build') == false {
-    fail("rbenv::install requires the ruby_build class")
+    fail('rbenv::install requires the ruby_build class')
   }
 
   include rbenv::params
 
-  ruby_build::install { "${name}":
+  ruby_build::install { $name:
     destination => $destination,
     timeout     => $timeout
   }
