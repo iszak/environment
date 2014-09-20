@@ -44,14 +44,15 @@ class ruby_build (
     ensure => latest
   }
 
-  exec { 'git clone ruby-build':
+  exec { 'git clone ruby_build':
     require => Package['git'],
     command => "${::git::params::bin_path} clone ${repository_url_param} ${install_path_param}",
     creates => $install_path_param
   }
 
-  exec { 'install ruby-build':
-    require => Exec['git clone ruby-build'],
-    command => "/bin/sh ${install_path_param}/install.sh"
+  exec { 'install ruby_build':
+    require => Exec['git clone ruby_build'],
+    command => "/bin/sh ${install_path_param}/install.sh",
+    creates => "/usr/local/share/ruby-build/"
   }
 }
