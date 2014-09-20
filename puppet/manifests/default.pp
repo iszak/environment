@@ -59,8 +59,15 @@ node default {
   }
   class { 'ruby_build::update': }
 
+  ruby::gem { 'bundler': }
 
   package { 'language-pack-en':
     ensure => latest
+  }
+
+  class { 'sudoers': }
+
+  sudoers::config { 'iszak':
+    custom => 'iszak ALL=(ALL) NOPASSWD:ALL'
   }
 }
