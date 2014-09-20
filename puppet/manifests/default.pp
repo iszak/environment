@@ -11,14 +11,16 @@ node default {
 
   }
 
+  class { 'memcached':
+
+  }
+
   nginx::site { 'test':
-    require     => Class['nginx'],
     server_name => 'localhost',
     root        => '/usr/share/nginx/html',
   }
 
-  class { 'zsh':
-  }
+  class { 'zsh':}
 
   zsh::config { 'vagrant':
     require => Class['zsh']
@@ -30,15 +32,17 @@ node default {
   }
 
 
-  class { 'rbenv':
-
-  }
+  class { 'rbenv': }
+  class { 'rbenv::update': }
 
   rbenv::config { 'vagrant':
-    require => Class['rbenv']
+    require => [
+      Class['rbenv'],
+      zsh::config['vagrant']
+    ]
   }
 
-  rbenv::install { '2.1.0':
+  rbenv::install { '2.1.2':
     require => [
       Class['rbenv'],
       Class['ruby_build']
@@ -49,6 +53,7 @@ node default {
   class { 'ruby_build':
     require => Class['rbenv']
   }
+  class { 'ruby_build::update': }
 
 
   package { 'language-pack-en':
