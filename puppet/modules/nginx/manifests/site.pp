@@ -141,5 +141,6 @@ define nginx::site (
       File[$sites_available_param],
       File[$sites_available_path]
     ],
+    notify  => Service['nginx'],
   }
 }

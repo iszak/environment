@@ -96,7 +96,7 @@ class nginx (
     # TODO: Set default site
     nginx::site { 'default':
         server_name => 'localhost',
-        root        => '/usr/share/nginx/html'
+        root        => '/usr/share/nginx/html',
     }
   }
 }
