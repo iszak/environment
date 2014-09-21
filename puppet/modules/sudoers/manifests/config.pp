@@ -8,13 +8,16 @@
 #   The user, group, alias to create the sudo rule for
 #
 # [*hosts*]
-#   The hosts that the user can connect from
+#   The hosts that the sudoer can connect from
 #
-# [*run_as*]
-#   The members the user can run as
+# [*run_as_user*]
+#   The user the sudoer can run as
+#
+# [*run_as_group*]
+#   The group the sudoer can run as
 #
 # [*commands*]
-#   The command the user can run
+#   The command the sudoer can run
 #
 # [*custom*]
 #   A custom fragment
@@ -32,7 +35,8 @@
 define sudoers::config (
   $user         = undef,
   $hosts        = undef,
-  $run_as       = undef,
+  $run_as_user  = undef,
+  $run_as_group = undef,
   $commands     = undef,
   $custom       = undef,
 
@@ -51,9 +55,14 @@ define sudoers::config (
     default => $hosts,
   }
 
-  $run_as_param = $run_as ? {
-    undef   => $::sudoers::params::sudoer_run_as,
-    default => $run_as,
+  $run_as_user_param = $run_as_user ? {
+    undef   => $::sudoers::params::sudoer_run_as_user,
+    default => $run_as_user,
+  }
+
+  $run_as_group_param = $run_as_group ? {
+    undef   => $::sudoers::params::sudoer_run_as_group,
+    default => $run_as_group,
   }
 
   $commands_param = $comamnds ? {

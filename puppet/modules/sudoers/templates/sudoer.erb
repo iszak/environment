@@ -1,5 +1,6 @@
+# member   hosts=(run_as_user:run_as_group) commands
 <% if @custom %>
 <%= @custom %>
 <% else %>
-<%= @user_param %> <%= @hosts_param.join(',') %>=<%= @run_as_param.join(',') %>:<%= @commands_param.join(',') %>
+<%= @user_param %> <%= @hosts_param.join(',') %>=(<%= @run_as_user_param.join(',') %>:<%= @run_as_group_param.join(',') %>) <%= @commands_param.join(',') %>
 <% end %>
