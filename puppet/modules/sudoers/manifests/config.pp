@@ -65,7 +65,7 @@ define sudoers::config (
     default => $run_as_group,
   }
 
-  $commands_param = $comamnds ? {
+  $commands_param = $commands ? {
     undef   => $::sudoers::params::sudoers_commands,
     default => $commands,
   }
@@ -81,8 +81,8 @@ define sudoers::config (
   }
 
   file { "${sudoers_dir_param}/${name}":
-    require => Class['sudoers'],
     ensure  => present,
+    require => Class['sudoers'],
     content => template('sudoers/sudoer.erb')
   }
 }
