@@ -9,12 +9,18 @@ node default {
   }
 
   # Nginx
-  class { 'nginx': }
+  # class { 'nginx': }
 
-  nginx::site { 'test':
-    server_name => 'localhost',
-    root        => '/usr/share/nginx/html',
-  }
+  # nginx::site { 'test':
+  #   server_name => 'localhost',
+  #   root        => '/usr/share/nginx/html',
+  # }
+
+  # Apache
+  class { 'apache': }
+
+  apache::module { 'xsendfile': }
+  apache::module { 'passenger': }
 
   # Zsh
   class { 'zsh': }
@@ -22,11 +28,10 @@ node default {
 
   # PHP
   class { 'php':
-    implementation => 'fpm'
+    package_name => 'fpm'
   }
 
   php::module { 'intl': }
-
 
   # Ruby
   class { 'rbenv': }
@@ -45,8 +50,8 @@ node default {
 
   # Iszak user
   user { 'iszak':
-    require    => Class['zsh'],
     ensure     => present,
+    require    => Class['zsh'],
     managehome => true,
     shell      => '/bin/zsh'
   }
