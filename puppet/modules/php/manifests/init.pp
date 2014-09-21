@@ -7,8 +7,8 @@
 # [*package_prefix*]
 #   The package prefix to use
 #
-# [*implementation*]
-#   The implement of PHP to use
+# [*package_name*]
+#   The name of PHP to use
 #
 # === Examples
 #
@@ -16,7 +16,7 @@
 #
 class php (
   $package_prefix = undef,
-  $implementation = undef
+  $package_name = undef
 ) {
   include php::params
 
@@ -25,23 +25,13 @@ class php (
     default => $package_prefix,
   }
 
-  $implementation_param = $implementation ? {
-    undef   => $::php::params::implementation,
-    default => $implementation,
+  $package_name_param = $package_name ? {
+    undef   => $::php::params::package_name,
+    default => $package_name,
   }
 
 
-  case $implementation_param {
-    'fpm': {
-      $package_name = "${package_prefix_param}-fpm"
-    }
-    default: {
-      fail('Implementation not supported')
-    }
-  }
-
-  package { 'php':
-    ensure => latest,
-    name   => $package_name
+  package { "${package_prefix_param}-${package_name_param}":
+    ensure => latest
   }
 }
