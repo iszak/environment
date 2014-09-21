@@ -56,8 +56,7 @@ node default {
   }
 
   sudoers::config { 'iszak':
-    require => User['iszak'],
-    custom  => 'iszak ALL=(ALL) NOPASSWD:ALL'
+    require => User['iszak']
   }
 
 
