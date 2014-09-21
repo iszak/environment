@@ -8,9 +8,7 @@
 #
 #  ruby::gem { 'bundler': }
 #
-define ruby::gem (
-
-) {
+define ruby::gem () {
   package { $name:
     ensure   => installed,
     provider => 'gem',
