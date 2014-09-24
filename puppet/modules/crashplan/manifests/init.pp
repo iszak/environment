@@ -46,12 +46,13 @@ class crashplan (
 
   exec { 'crashplan download':
     command => "/usr/bin/wget ${download_url_param} -O ${download_path_param}",
-    creates => $download_path
+    creates => $download_path_param
   }
 
   exec { 'crashplan extract':
     require => Exec['crashplan download'],
     command => "/bin/tar -xzvf ${download_path_param} -C ${extract_path_param}",
+    creates => $extract_path_param
   }
 
   file { 'crashplan express':
@@ -63,8 +64,9 @@ class crashplan (
 
   exec { 'crashplan install':
     require => File['crashplan express'],
-    command => "/bin/bash express.sh",
-    cwd     => "${extract_path_param}/CrashPlan-install/"
+    command => '/bin/bash express.sh',
+    cwd     => "${extract_path_param}/CrashPlan-install/",
+    creates => '/usr/local/crashplan'
   }
 
   service { 'crashplan':
