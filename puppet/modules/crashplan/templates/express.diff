@@ -1,0 +1,233 @@
+40,52c40,42
+<         echo -n "${1} does not exist.  Create $1? (y/n) [y] "
+<         read YN_PD
+<         if [ "x${YN_PD}" == "x" ] ; then
+<             YN_PD=y
+<         fi
+<         if [ "${YN_PD}" == "y" ] ; then
+<             mkdir -p "${1}"
+<             if [ $? -ne 0 ] ; then
+<                 echo "Failed to create ${1}.  Please check your configuration."
+<                 return 1
+<             fi
+<         else
+<             echo "Please check your configuration."
+---
+>         mkdir -p "${1}"
+>         if [ $? -ne 0 ] ; then
+>             echo "Failed to create ${1}.  Please check your configuration."
+59,78d48
+< promptForJVMDownload() {
+< 
+<     echo -n "Would you like to download the JRE and dedicate it to ${APP_BASENAME}? (y/n) [y] "
+<     read JAVADL
+<     if [ "x${JAVADL}" == "x" ] ; then
+<         JAVADL=y
+<     fi
+< 
+<     if [ "${JAVADL}" == "y" ] ; then
+<         JAVACOMMON="DOWNLOAD"
+<         echo "  jre will be downloaded"
+<     else
+<         echo ""
+<         echo "We're sorry, ${APP_BASENAME} requires a valid Sun JRE or OpenJDK. Please install one and then"
+<         echo "rerun this installer. Exiting."
+<         exit 1
+<     fi
+<     return 0
+< }
+< 
+85d54
+<     read ENTER
+99,117c68
+<     echo -n "Would you like to switch users and install as root? (y/n) [y] "
+<     read YN
+<     if [ "x${YN}" == "x" ] ; then
+<         YN=y
+<     fi
+< 
+<     if [ "${YN}" == "y" ] ; then
+<         echo "  switching to root"
+<         sudo ${0} recall
+<         exit 0
+<     else
+<         echo "  installing as current user"
+< 
+<         TARGETDIR=${HOME}/${DIR_BASENAME}
+<         BINSDIR=
+<         MANIFESTDIR=${TARGETDIR}/manifest
+<         INITDIR=
+<         RUNLVLDIR=
+<     fi
+---
+>     exit 1
+141c92
+<     promptForJVMDownload
+---
+>     exit 1
+188,213d138
+< echo ""
+< echo "You must review and agree to the EULA before installation."
+< echo ""
+< echo -n "Press enter to read the EULA. "
+< read ENTER
+< 
+< # EULA Time
+< more ./EULA.txt
+< 
+< agreed=0
+< while [ "${agreed}" == "0" ] ; do
+<     echo ""
+<     echo -n "Do you accept and agree to be bound by the EULA? (yes/no) "
+<     read reply
+<     case ${reply} in
+<         [yY] | [yY][eE][sS])
+<             agreed=1
+<             ;;
+<         [nN] | [nN][oO])
+<             echo "If you do not agree to the license then ${APP_BASENAME} may not be installed. Exiting.";
+<             exit 1
+<             ;;
+<     esac
+< done
+< 
+< 
+219,226d143
+<         echo ""
+<         echo -n "What directory do you wish to install ${APP_BASENAME} to? [${TARGETDIR}] "
+<         read TARGETDIR_X
+<         if [ "x${TARGETDIR_X}" != "x" ] ; then
+<             TARGETDIR=${TARGETDIR_X}
+<             MANIFESTDIR=${TARGETDIR}/manifest
+<         fi
+< 
+237,242d153
+<             echo ""
+<             echo -n "What directory do you wish to link the ${APP_BASENAME} executable to? [${BINSDIR}] "
+<             read BINSDIR_X
+<             if [ "x${BINSDIR_X}" != "x" ] ; then
+<                 BINSDIR=${BINSDIR_X}
+<             fi
+252,257d162
+<         echo ""
+<         echo -n "What directory do you wish to store backups in? [${MANIFESTDIR}] "
+<         read MANIFESTDIR_X
+<         if [ "x${MANIFESTDIR_X}" != "x" ] ; then
+<             MANIFESTDIR=${MANIFESTDIR_X}
+<         fi
+267,272d171
+<             echo ""
+<             echo -n "What directory contains your SYSV init scripts? [${INITDIR}] "
+<             read INITDIR_X
+<             if [ "x${INITDIR_X}" != "x" ] ; then
+<                 INITDIR=${INITDIR_X}
+<             fi
+281,286d179
+<             echo ""
+<             echo -n "What directory contains your runlevel init links? [${RUNLVLDIR}] "
+<             read RUNLVLDIR_X
+<             if [ "x${RUNLVLDIR_X}" != "x" ] ; then
+<                 RUNLVLDIR=${RUNLVLDIR_X}
+<             fi
+304,309d196
+<     echo ""
+<     echo -n "Is this correct? (y/n) [y] "
+<     read YN
+<     if [ "x${YN}" == "x" ] ; then
+<         YN=y
+<     fi
+311,313c198
+<     if [ "${YN}" == "y" ] ; then
+<         INTERVIEW=1
+<     fi
+---
+>     INTERVIEW=1
+341,392d225
+< #download java
+< if [[ $JAVACOMMON == "DOWNLOAD" ]]; then
+<     if [[ $PARCH == "x86_64" ]]; then
+<         JVMURL="${JRE_X64_DOWNLOAD_URL}"
+<     else
+<         JVMURL="${JRE_I586_DOWNLOAD_URL}"
+<     fi
+<     JVMFILE=`basename ${JVMURL}`
+<     if [[ -f ${JVMFILE} ]]; then
+<         echo ""
+<         echo "Download of the JVM found. We'll try to use it, but if it's only a partial"
+<         echo "copy of the file then this will fail. If that happens please remove the file"
+<         echo "and try again."
+<         echo "JRE Archive: ${JVMFILE}"
+<         echo ""
+<     else
+< 
+<         # Start by looking for wget
+<         WGET_PATH=`which wget 2> /dev/null`
+<         if [[ $? == 0 ]]; then
+<             echo "    downloading the JRE using wget"
+<             $WGET_PATH $JVMURL
+<             if [[ $? != 0 ]]; then
+<                 echo "Unable to download JRE; please check network connection"
+<                 exit 1
+<             fi
+<         else
+< 
+<             CURL_PATH=`which curl 2> /dev/null`
+<             if [[ $? == 0 ]]; then
+<                 echo "    downloading the JRE using curl"
+<                 $CURL_PATH $JVMURL -o `basename $JVMURL`
+<                 if [[ $? != 0 ]]; then
+<                     echo "Unable to download JRE; please check network connection"
+<                     exit 1
+<                 fi
+<             else
+<                 echo "Could not find wget or curl.  You must install one of these utilities"
+<                 echo "in order to download a JVM"
+<                 exit 1
+<             fi
+<         fi
+<     fi
+< 
+<     HERE=`pwd`
+<     cd ${TARGETDIR}
+<     # Extract into ./jre
+<     tar -xzf "${HERE}/${JVMFILE}"
+<     cd "${HERE}"
+<     JAVACOMMON="${TARGETDIR}/jre/bin/java"
+<     echo "Java Installed."
+< fi
+513d345
+< read ENTER
+535,567d366
+< echo "You can run the ${APP_BASENAME} Desktop UI locally as your own user or connect"
+< echo "a remote Desktop UI to this Service via port-forwarding and manage it"
+< echo "remotely. Instructions for remote management are in the readme files"
+< echo "placed in your installation directory:"
+< echo "  ${TARGETDIR}/doc"
+< echo ""
+< if [ "x${DISPLAY}" != "x" ] ; then
+<     echo -n "Would you like to start ${APP_BASENAME}Desktop? (y/n) [y] "
+<     read reply
+<     if [ "x${reply}" == "x" ] ; then
+<         reply=y
+<     fi
+<     case ${reply} in
+<         [yY] | [yY][eE][sS])
+<             # use 'su' only if we're operating as root
+<             if [ "${USERNAME}" == "root" ] ; then
+<                 su ${SRC_USER} -c "${GUISCRIPT}"
+<             else
+<                 ${GUISCRIPT}
+<             fi
+<             ;;
+<     esac
+< fi
+< 
+< echo ""
+< echo "To start the Desktop UI:"
+< if [ "x${BINSDIR}" != "x" ] ; then
+<     echo "  ${BINSDIR}/${APP_BASENAME}Desktop"
+< else
+< echo "  ${GUISCRIPT}"
+< fi
+< 
+< echo ""
