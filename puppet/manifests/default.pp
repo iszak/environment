@@ -3,10 +3,12 @@ node default {
     before => Stage['main']
   }
 
+
   # Apt
   class { 'apt':
     stage => init
   }
+
 
   # Nginx
   # class { 'nginx': }
@@ -16,11 +18,13 @@ node default {
   #   root        => '/usr/share/nginx/html',
   # }
 
+
   # Apache
   class { 'apache': }
 
   apache::module { 'xsendfile': }
   apache::module { 'passenger': }
+
 
   # Zsh
   class { 'zsh': }
@@ -45,7 +49,6 @@ node default {
   class { 'ruby_build::update': }
 
   ruby::gem { 'bundler': }
-
 
 
   # Iszak user

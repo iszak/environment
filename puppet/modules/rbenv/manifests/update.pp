@@ -14,9 +14,9 @@
 class rbenv::update (
   $install_path  = undef
 ) {
+  include git
   include rbenv
   include rbenv::params
-  include git
 
   $install_path_param = $install_path ? {
     undef   => $::rbenv::params::install_path,
@@ -25,8 +25,8 @@ class rbenv::update (
 
   exec { 'git pull rbenv':
     require => [
-      Class['rbenv'],
       Package['git'],
+      Class['rbenv'],
     ],
     command => "${::git::params::bin_path} pull",
     cwd     => $install_path_param

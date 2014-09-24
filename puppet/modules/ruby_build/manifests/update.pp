@@ -26,8 +26,8 @@ class ruby_build::update (
 
   exec { 'git pull ruby_build':
     require => [
-      Class['ruby_build'],
       Package['git'],
+      Class['ruby_build'],
     ],
     command => "${::git::params::bin_path} pull",
     cwd     => $install_path_param
