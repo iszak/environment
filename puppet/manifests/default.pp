@@ -9,6 +9,10 @@ node default {
     stage => init
   }
 
+  class { 'crashplan':
+
+  }
+
 
   # Nginx
   # class { 'nginx': }
