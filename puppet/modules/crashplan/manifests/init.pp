@@ -56,10 +56,10 @@ class crashplan (
   }
 
   file { 'crashplan express':
-    ensure   => present,
-    require  => Exec['crashplan extract'],
-    path     => "${extract_path_param}/CrashPlan-install/express.sh",
-    content  => template('crashplan/express.sh')
+    ensure  => present,
+    require => Exec['crashplan extract'],
+    path    => "${extract_path_param}/CrashPlan-install/express.sh",
+    content => template('crashplan/express.sh')
   }
 
   exec { 'crashplan install':
