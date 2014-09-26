@@ -70,8 +70,8 @@ define ufw::rule (
   }
 
 
-  exec { "ufw allow ${rule}":
-    command => "${bin_path_param} allow ${rule}",
+  exec { "ufw ${type} ${rule}":
+    command => "${bin_path_param} ${type} ${rule}",
     require => Package['ufw']
   }
 }
