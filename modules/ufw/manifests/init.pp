@@ -54,7 +54,7 @@ class ufw (
   }
 
   if ($enable == true) {
-    exec { 'ufw enable':
+    exec { 'echo "y" | ufw enable':
       command => "${bin_path_param} enable",
       require => Package['ufw']
     }
