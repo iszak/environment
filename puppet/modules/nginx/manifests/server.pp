@@ -1,6 +1,6 @@
-# == Define: nginx::site
+# == Define: nginx::server
 #
-# A type to create nginx sites
+# A type to create nginx server blocks
 #
 # === Parameters
 #
@@ -11,19 +11,19 @@
 #   The group of any files created, default is root
 #
 # [*sites_enabled*]
-#   The path to sites enabled, default is /etc/nginx/sites-enabled/
+#   The path to servers enabled, default is /etc/nginx/sites-enabled/
 #
 # [*sites_available*]
-#   The path to sites available, default is /etc/nginx/sites-available/
+#   The path to servers available, default is /etc/nginx/sites-available/
 #
 # [*default_server*]
-#   Whether this site is the default server, default is false
+#   Whether this server is the default, default is false
 #
 # [*host*]
-#   The host of the site, default is *
+#   The host of the server, default is *
 #
 # [*port*]
-#   The port of the site, default is 80
+#   The port of the server, default is 80
 #
 # [*index*]
 #   The index to load, default is index.html and index.htm
@@ -47,7 +47,7 @@
 #      root        => '/usr/share/nginx/html'
 #  }
 #
-define nginx::site (
+define nginx::server (
   $server_name,
   $root,
 
@@ -129,7 +129,7 @@ define nginx::site (
 
   file { $sites_available_path:
     ensure  => present,
-    content => template('nginx/site.erb'),
+    content => template('nginx/server.erb'),
     owner   => $owner_param,
     group   => $group_param,
     require => File[$sites_available_param],
