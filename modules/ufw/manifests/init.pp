@@ -53,9 +53,9 @@ class ufw (
     ensure => latest
   }
 
-  if ($enable == true) {
-    exec { 'echo "y" | ufw enable':
-      command => "${bin_path_param} enable",
+  if ($enable_param == true) {
+    exec { 'ufw enable':
+      command => "/bin/echo \"y\" | ${bin_path_param} enable",
       require => Package['ufw']
     }
   } else {
