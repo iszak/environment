@@ -9,18 +9,7 @@ node default {
     stage => init
   }
 
-  class { 'crashplan':
-
-  }
-
-
-  # Nginx
-  # class { 'nginx': }
-
-  # nginx::site { 'test':
-  #   server_name => 'localhost',
-  #   root        => '/usr/share/nginx/html',
-  # }
+  # class { 'crashplan': }
 
 
   # Apache
@@ -39,8 +28,6 @@ node default {
     package_name => 'fpm'
   }
 
-  php::module { 'intl': }
-
   # Ruby
   class { 'rbenv': }
   class { 'rbenv::update': }
@@ -55,7 +42,7 @@ node default {
   ruby::gem { 'bundler': }
 
 
-  # Iszak user
+  # User
   user { 'iszak':
     ensure     => present,
     require    => Class['zsh'],
