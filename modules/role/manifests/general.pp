@@ -24,7 +24,15 @@ class role::general {
 
   class { 'ufw': }
 
-  ufw::allow { 'ssh': }
+
+  ufw::allow { 'ssh':
+    service => 'ssh'
+  }
+
+  # ufw::default { 'deny incoming':
+  #   type       => 'deny',
+  #   connection => 'incoming'
+  # }
 
   class { 'zsh': }
 }

@@ -21,5 +21,6 @@ class role::ruby {
   class { 'ruby_build::update': }
 
   class { 'apache': }
+
   apache::module { 'passenger': }
 }

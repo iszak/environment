@@ -14,4 +14,8 @@ class role::web {
   apache::module { 'bw': }
   apache::module { 'security2': }
   apache::module { 'xsendfile': }
+
+  ufw::allow { 'http':
+    service => 'http'
+  }
 }

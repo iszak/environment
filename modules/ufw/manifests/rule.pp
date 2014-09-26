@@ -55,17 +55,14 @@ define ufw::rule (
     }
   }
 
-  if ($from != undef) {
-    $from_param = "${type} from ${from}"
-  } else {
-    $from_param = ''
+  if ($to != undef) {
+    fail('The parameters "to" is not supported yet')
   }
 
-  if ($to != undef) {
-    $to_param = " to ${to}"
-  } else {
-    $to_param = ''
+  if ($from != undef) {
+    fail('The parameters "from" is not supported yet')
   }
+
 
   $bin_path_param = $bin_path ? {
     undef   => $::ufw::params::bin_path,
@@ -73,7 +70,7 @@ define ufw::rule (
   }
 
 
-  exec { "ufw allow ${rule_param}":
+  exec { "ufw allow ${rule}":
     command => "${bin_path_param} allow ${rule}",
     require => Package['ufw']
   }
