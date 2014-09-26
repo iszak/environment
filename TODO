@@ -4,3 +4,6 @@
 # CrashPlan
 - Ensure temporary directory is writable
 - Additional configuration parameters
+
+# PostgreSQL
+- Implement scheduled backups
