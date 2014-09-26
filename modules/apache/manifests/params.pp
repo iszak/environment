@@ -7,6 +7,7 @@
 #  class { 'apache::params': }
 #
 class apache::params {
+  $package_name   = 'apache2'
   $package_prefix = 'libapache2-mod'
 
   $owner           = 'root'
