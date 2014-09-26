@@ -7,6 +7,8 @@
 #  class { 'ufw::params': }
 #
 class ufw::params {
-  $enable  = true
-  $logging = false
+  $enable       = true
+  $logging      = false
+  $bin_path     = '/usr/sbin/ufw'
+  $package_name = 'ufw'
 }

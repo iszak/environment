@@ -4,6 +4,28 @@
 #
 # === Parameters
 #
+# [*type*]
+#   The type of rule either allow or deny
+#
+# [*port*]
+#   The port to allow or deny
+#
+# [*service*]
+#   The service to allow or deny, see /etc/services
+#
+# [*protocol*]
+#   The protocol to allow or deny
+#
+# [*from*]
+#   The source to allow or deny
+#
+# [*to*]
+#   The destination to allow or deny
+#
+# [*bin_path*]
+#   The path to the ufw binary
+#
+#
 # === Examples
 #
 #  ufw::rule { 'allow ssh':
@@ -17,7 +39,8 @@ define ufw::rule (
   $service  = undef,
   $protocol = undef,
   $from     = undef,
-  $to       = undef
+  $to       = undef,
+  $bin_path = undef
 ) {
   include ufw
   include ufw::params
@@ -44,8 +67,14 @@ define ufw::rule (
     $to_param = ''
   }
 
+  $bin_path_param = $bin_path ? {
+    undef   => $::ufw::params::bin_path,
+    default => $bin_path,
+  }
 
-  exec { "ufw allow ${rule}":
+
+  exec { "ufw allow ${rule_param}":
+    command => "${bin_path_param} allow ${rule}",
     require => Package['ufw']
   }
 }

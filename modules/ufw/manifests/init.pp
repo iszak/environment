@@ -4,13 +4,27 @@
 #
 # === Parameters
 #
+# [*enable*]
+#   Whether to enable or disable ufw
+#
+# [*logging*]
+#   Whether to enable or disable logging
+#
+# [*bin_path*]
+#   The path to the ufw binary
+#
+# [*package_name*]
+#   The package name to install
+#
 # === Examples
 #
 #  class { 'ufw': }
 #
 class ufw (
-  $enable  = undef,
-  $logging = undef
+  $enable       = undef,
+  $logging      = undef,
+  $bin_path     = undef,
+  $package_name = undef
 ) {
   include ufw::params
 
@@ -24,26 +38,41 @@ class ufw (
     default => $logging,
   }
 
-  package { 'ufw':
+  $bin_path_param = $bin_path ? {
+    undef   => $::ufw::params::bin_path,
+    default => $bin_path,
+  }
+
+  $package_name_param = $package_name ? {
+    undef   => $::ufw::params::package_name,
+    default => $package_name,
+  }
+
+
+  package { $package_name_param:
     ensure => latest
   }
 
   if ($enable == true) {
     exec { 'ufw enable':
+      command => "${bin_path_param} enable",
       require => Package['ufw']
     }
   } else {
     exec { 'ufw disable':
+      command => "${bin_path_param} disable",
       require => Package['ufw']
     }
   }
 
   if ($logging == true) {
     exec { 'ufw logging on':
+      command => "${bin_path_param} logging on",
       require => Package['ufw']
     }
   } else {
     exec { 'ufw logging off':
+      command => "${bin_path_param} logging off",
       require => Package['ufw']
     }
   }
