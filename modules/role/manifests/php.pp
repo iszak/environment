@@ -1,6 +1,6 @@
 # == Class: role::php
 #
-# A class to setup php
+# A class to setup PHP server
 #
 # === Parameters
 #

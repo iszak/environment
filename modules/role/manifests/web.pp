@@ -1,6 +1,6 @@
 # == Class: role::web
 #
-# A class to setup web
+# A class to setup web server
 #
 # === Parameters
 #

@@ -1,6 +1,6 @@
 # == Class: role::ruby
 #
-# A class to setup ruby
+# A class to setup ruby server
 #
 # === Parameters
 #

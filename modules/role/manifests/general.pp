@@ -1,6 +1,6 @@
 # == Class: role::general
 #
-# A class to setup general
+# A class to setup general server
 #
 # === Parameters
 #
