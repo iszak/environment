@@ -9,18 +9,18 @@
 #  include role::ruby
 #
 class role::ruby {
-  class { 'ruby': }
-  ruby::gem { 'bundler': }
+  include role::web
 
   class { 'rbenv': }
   class { 'rbenv::update': }
 
-  rbenv::install { '2.1.2': }
-
-  class { 'ruby_build': }
+  class { 'ruby_build':
+    require => Class['rbenv']
+  }
   class { 'ruby_build::update': }
 
-  class { 'apache': }
+  rbenv::install { '2.1.2': }
+
 
   apache::module { 'passenger': }
 }
