@@ -19,7 +19,6 @@ class ruby_build (
   $repository_url = undef
 ) {
   include git
-  include rbenv
   include ruby_build::params
 
   $install_path_param = $install_path ? {

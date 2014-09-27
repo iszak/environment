@@ -27,17 +27,17 @@ define ruby_build::install (
   include ruby_build::params
 
   $destination_param = $destination ? {
-    undef   => "${::ruby_build::params::destination_path}/${version}",
+    undef   => $::ruby_build::params::build_path,
     default => $destination,
   }
 
   $timeout_param = $timeout ? {
-    undef   => $::ruby_build::params::install_timeout,
+    undef   => $::ruby_build::params::build_timeout,
     default => $timeout,
   }
 
   exec { "${name} install":
-    command => "${::ruby_build::params::install_path}/bin/ruby-build ${version} ${destination_param}",
+    command => "${::ruby_build::params::bin_path} ${version} ${destination_param}",
     timeout => $timeout_param,
     creates => $destination_param
   }

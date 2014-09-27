@@ -7,9 +7,11 @@
 #  class { 'ruby_build::params': }
 #
 class ruby_build::params {
-  $install_path     = '/usr/local/rbenv/plugins/ruby-build'
   $repository_url   = 'https://github.com/sstephenson/ruby-build.git'
 
-  $destination_path = '/usr/local/rbenv/versions'
-  $install_timeout  = 900
+  $install_path     = '/usr/local/rbenv/plugins/ruby-build'
+  $bin_path         = "${install_path}/bin/ruby"
+
+  $build_path       = '/usr/local/rbenv/versions'
+  $build_timeout    = 900
 }
