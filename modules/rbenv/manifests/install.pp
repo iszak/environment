@@ -4,9 +4,6 @@
 #
 # === Parameters
 #
-# [*destination*]
-#   The destination for installing ruby
-#
 # [*timeout*]
 #   The timeout for installing ruby
 #
@@ -15,16 +12,23 @@
 #  rbenv::install { '2.1.2': }
 #
 define rbenv::install (
-  $destination = undef,
-  $timeout     = undef
+  $timeout = undef
 ) {
+  $version = $name
+
   include ruby_build
 
   include rbenv
   include rbenv::params
 
-  ruby_build::install { $name:
-    destination => $destination,
-    timeout     => $timeout
+  $timeout_param = $timeout ? {
+    undef   => $::rbenv::params::build_timeout,
+    default => $timeout,
+  }
+
+  exec { "${name} install":
+    command => "${::rbenv::params::bin_path} install ${version}",
+    timeout => $timeout_param,
+    creates => "${::rbenv::params::version_path}/${version}/"
   }
 }

@@ -7,6 +7,12 @@
 #  class { 'rbenv::params': }
 #
 class rbenv::params {
-  $install_path   = '/usr/local/rbenv'
-  $repository_url = 'https://github.com/sstephenson/rbenv.git'
+  $repository_url  = 'https://github.com/sstephenson/rbenv.git'
+
+  $install_path    = '/usr/local/rbenv'
+  $bin_path        = "${install_path}/bin/rbenv"
+
+  $version_path    = "${install_path}/versions"
+
+  $build_timeout   = 900
 }
