@@ -1,6 +1,8 @@
 node default {
   include role::general
   include role::web
+  include role::ruby
+  include role::database
 
 
   # User
