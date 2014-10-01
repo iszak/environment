@@ -9,7 +9,7 @@
 #  include role::php
 #
 class role::php {
-  class { 'php':
+  class { '::php':
     package_name => 'fpm'
   }
 
