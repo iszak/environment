@@ -1,6 +1,6 @@
 # == Define: php::ini
 #
-# A type to install php inis
+# A type to install php ini's
 #
 # === Parameters
 #
