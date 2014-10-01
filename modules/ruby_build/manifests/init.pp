@@ -38,11 +38,12 @@ class ruby_build (
     'libssl-dev',
     'libyaml-dev',
     'libreadline6-dev',
+    'libncurses5-dev',
     'zlib1g-dev',
-    'libncurses5-dev'
   ]:
     ensure => latest
   }
+
 
   exec { 'git clone ruby_build':
     require => Package['git'],
@@ -51,7 +52,9 @@ class ruby_build (
   }
 
   exec { 'install ruby_build':
-    require => Exec['git clone ruby_build'],
+    require => [
+      Exec['git clone ruby_build']
+    ],
     command => "/bin/sh ${install_path_param}/install.sh",
     creates => '/usr/local/share/ruby-build/'
   }
