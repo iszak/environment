@@ -32,7 +32,7 @@ class rbenv (
   }
 
 
-  exec { 'git clone rbenv':
+  exec { 'install rbenv':
     require => Package['git'],
     command => "${::git::params::bin_path} clone ${repository_url_param} ${install_path_param}",
     creates => $install_path_param

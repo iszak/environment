@@ -27,6 +27,10 @@ define rbenv::install (
   }
 
   exec { "${name} install":
+    require => [
+        Exec['install ruby_build'],
+        Exec['install rbenv']
+    ],
     command => "${::rbenv::params::bin_path} install ${version}",
     timeout => $timeout_param,
     creates => "${::rbenv::params::version_path}/${version}/"
