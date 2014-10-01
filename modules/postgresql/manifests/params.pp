@@ -7,5 +7,12 @@
 #  class { 'postgresql::params': }
 #
 class postgresql::params {
-  $package_name = 'postgresql'
+  $package_name    = 'postgresql',
+
+  $host            = 'localhost'
+  $port            = 5432
+
+  $user_superuser  = false
+  $user_createdb   = false
+  $user_createrole = false
 }
