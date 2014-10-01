@@ -37,4 +37,11 @@ class rbenv (
     command => "${::git::params::bin_path} clone ${repository_url_param} ${install_path_param}",
     creates => $install_path_param
   }
+
+  file { 'symlink rbenv':
+    ensure  => symlink,
+    path    => '/usr/local/bin/rbenv',
+    target  => $::git::params::bin_path,
+    require => Exec['install rbenv'],
+  }
 }
