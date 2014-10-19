@@ -23,7 +23,11 @@ define rbenv::config (
 
   # Bash
   if $bash == true {
-    $bash_file = "/home/${name}/.bashrc"
+    if ($name == 'root') {
+      $bash_file = "/root/.bashrc"
+    } else {
+      $bash_file = "/home/${name}/.bashrc"
+    }
 
     file { "${name} .bashrc":
       ensure => present,
@@ -36,13 +40,22 @@ define rbenv::config (
       unless  => "/bin/grep -P 'RBENV_ROOT=' ${bash_file}"
     }
 
-    exec { "${name} path":
+    exec { "${name} bin path":
       command => "/bin/echo 'export PATH=\"\$RBENV_ROOT/bin:\$PATH\"' >> ${bash_file}",
       require => [
         Exec["${name} rbenv root"],
         File["${name} .bashrc"],
       ],
       unless  => "/bin/grep -P 'RBENV_ROOT/bin' ${bash_file}"
+    }
+
+    exec { "${name} shim path":
+      command => "/bin/echo 'export PATH=\"\$RBENV_ROOT/shims:\$PATH\"' >> ${bash_file}",
+      require => [
+        Exec["${name} rbenv root"],
+        File["${name} .bashrc"],
+      ],
+      unless  => "/bin/grep -P 'RBENV_ROOT/shims' ${bash_file}"
     }
   }
 
@@ -61,13 +74,22 @@ define rbenv::config (
       unless  => "/bin/grep -P 'RBENV_ROOT=' ${zsh_file}"
     }
 
-    exec { "${name} path":
+    exec { "${name} bin path":
       command => "/bin/echo 'export PATH=\"\$RBENV_ROOT/bin:\$PATH\"' >> ${zsh_file}",
       require => [
         Exec["${name} rbenv root"],
         File["${name} .zshrc"],
       ],
       unless  => "/bin/grep -P 'RBENV_ROOT/bin' ${zsh_file}"
+    }
+
+    exec { "${name} shim path":
+      command => "/bin/echo 'export PATH=\"\$RBENV_ROOT/shims:\$PATH\"' >> ${zsh_file}",
+      require => [
+        Exec["${name} rbenv root"],
+        File["${name} .zshrc"],
+      ],
+      unless  => "/bin/grep -P 'RBENV_ROOT/shims' ${zsh_file}"
     }
   }
 }

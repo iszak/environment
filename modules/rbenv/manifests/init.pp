@@ -41,7 +41,7 @@ class rbenv (
   file { 'symlink rbenv':
     ensure  => symlink,
     path    => '/usr/local/bin/rbenv',
-    target  => $::git::params::bin_path,
+    target  => $::rbenv::params::bin_path,
     require => Exec['install rbenv'],
   }
 }
