@@ -62,7 +62,7 @@ define rbenv::install (
     timeout     => $timeout_param,
     user        => $user_param,
     group       => $group_param,
-    environment => ["RBENV_ROOT=${rbenv_root_param}"]
+    environment => ["RBENV_ROOT=${rbenv_root_param}"],
     creates     => "${::rbenv::params::version_path}/${version}/",
   }
 }

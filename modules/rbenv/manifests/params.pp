@@ -13,7 +13,9 @@ class rbenv::params {
   $bin_path        = "${install_path}/bin/rbenv"
   $version_path    = "${install_path}/versions"
 
-  $install_timeout  = 900
+  $install_timeout = 900
   $install_user    = 'root'
   $install_group   = 'root'
+
+  $global_version  = 'system'
 }
