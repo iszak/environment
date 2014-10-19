@@ -7,7 +7,7 @@
 #  class { 'postgresql::params': }
 #
 class postgresql::params {
-  $package_name    = 'postgresql',
+  $package_name    = 'postgresql'
 
   $host            = 'localhost'
   $port            = 5432
