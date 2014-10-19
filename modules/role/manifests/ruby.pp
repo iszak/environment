@@ -19,8 +19,13 @@ class role::ruby {
   }
   class { 'ruby_build::update': }
 
-  rbenv::install { '2.1.2': }
+  rbenv::config { 'root': }
 
+  rbenv::install { '2.1.3': }
+  ->
+  class { 'rbenv::global':
+    version => '2.1.3'
+  }
 
   apache::module { 'passenger': }
 }
