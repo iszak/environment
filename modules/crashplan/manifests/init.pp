@@ -52,18 +52,21 @@ class crashplan (
   exec { 'crashplan extract':
     require => Exec['crashplan download'],
     command => "/bin/tar -xzvf ${download_path_param} -C ${extract_path_param}",
-    creates => $extract_path_param
+    creates => "${extract_path_param}/CrashPlan-install/"
   }
 
   file { 'crashplan express':
-    ensure  => present,
+    ensure  => file,
     require => Exec['crashplan extract'],
     path    => "${extract_path_param}/CrashPlan-install/express.sh",
     content => template('crashplan/express.sh')
   }
 
   exec { 'crashplan install':
-    require => File['crashplan express'],
+    require => [
+      Package['default-jre-headless'],
+      File['crashplan express']
+    ],
     command => '/bin/bash express.sh',
     cwd     => "${extract_path_param}/CrashPlan-install/",
     creates => '/usr/local/crashplan'
