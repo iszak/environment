@@ -20,9 +20,9 @@
 #  }
 #
 define npm::install (
+  $path,
   $user  = undef,
   $group = undef,
-  $path  = undef,
 ) {
   include npm
   include npm::params

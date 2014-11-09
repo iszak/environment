@@ -12,6 +12,8 @@ node default {
   create_resources('zsh::config', hiera_hash('zsh::config', {}))
   create_resources('sudoers::config', hiera_hash('sudoers::config', {}))
 
-  create_resources('php::module', hiera_hash('php::module', {}))
   create_resources('git::clone', hiera_hash('git::clone', {}))
+
+  create_resources('php::module', hiera_hash('php::module', {}))
+  create_resources('npm::install', hiera_hash('npm::install', {}))
 }
