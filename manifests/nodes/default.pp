@@ -2,9 +2,10 @@ node default {
   include role::general
   include role::backup
   include role::web
-  # include role::php
+  include role::php
   include role::ruby
   include role::database
+  include role::nodejs
 
   project::rails { '1001-beers-api':
     user  => 'beers-api',
