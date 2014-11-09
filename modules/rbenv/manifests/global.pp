@@ -33,7 +33,7 @@ class rbenv::global (
     default => $rbenv_root,
   }
 
-  exec { "rbenv global":
+  exec { 'rbenv global':
     require     => Exec['install rbenv'],
     command     => "${::rbenv::params::bin_path} global ${version_param}",
     environment => ["RBENV_ROOT=${rbenv_root_param}"],

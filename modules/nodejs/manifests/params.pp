@@ -7,6 +7,6 @@
 #  class { 'nodejs::params': }
 #
 class nodejs::params {
-  $debug       = false,
+  $debug       = false
   $development = true
 }

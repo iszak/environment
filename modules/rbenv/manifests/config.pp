@@ -24,7 +24,7 @@ define rbenv::config (
   # Bash
   if $bash == true {
     if ($name == 'root') {
-      $bash_file = "/root/.bashrc"
+      $bash_file = '/root/.bashrc'
     } else {
       $bash_file = "/home/${name}/.bashrc"
     }
