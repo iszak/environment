@@ -50,7 +50,7 @@ define git::clone (
 
   exec { "git clone ${name}":
     require => Package['git'],
-    command => "/usr/bin/git clone --depth=${depth_param} ${url} ${path}",
+    command => "${::git::params::bin_path} clone --depth=${depth_param} ${url} ${path}",
     user    => $user_param,
     group   => $group_param,
     creates => $path
