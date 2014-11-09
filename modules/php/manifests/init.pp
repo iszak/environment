@@ -16,7 +16,7 @@
 #
 class php (
   $package_prefix = undef,
-  $package_name = undef
+  $package_name   = undef
 ) {
   include php::params
 
