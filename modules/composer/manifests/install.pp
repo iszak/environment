@@ -1,4 +1,4 @@
-# == Class: npm::install
+# == Class: composer::install
 #
 # A class to install node modules
 #
@@ -11,38 +11,37 @@
 #   The group to use when cloning
 #
 # [*path*]
-#   The path to run npm install
+#   The path to run composer install
 #
 # === Examples
 #
-#  npm::install { 'name':
+#  composer::install { 'name':
 #    path => '/home/iszak/environment/'
 #  }
 #
-define npm::install (
+define composer::install (
   $path,
   $user  = undef,
   $group = undef,
 ) {
-  include npm
-  include npm::params
+  include composer
+  include composer::params
 
   $user_param = $user ? {
-    undef   => $::npm::params::install_user,
+    undef   => $::composer::params::install_user,
     default => $user,
   }
 
   $group_param = $group ? {
-    undef   => $::npm::params::install_group,
+    undef   => $::composer::params::install_group,
     default => $group,
   }
 
-  exec { "npm install ${name}":
-    require => Package['npm'],
-    command => "${::npm::params::bin_path} install",
+  exec { "composer install ${name}":
+    command => "${path}/composer.phar install",
     user    => $user_param,
     group   => $group_param,
     cwd     => $path,
-    creates => "${path}/node_modules/",
+    creates => "${path}/vendor/composer/",
   }
 }

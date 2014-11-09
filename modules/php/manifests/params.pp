@@ -9,4 +9,7 @@
 class php::params {
   $package_prefix = 'php5'
   $package_name   = 'fpm'
+
+  $cli            = true
+  $dev            = true
 }

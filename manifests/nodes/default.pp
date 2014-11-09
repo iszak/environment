@@ -25,5 +25,6 @@ node default {
 
   create_resources('php::module', hiera_hash('php::module', {}))
 
+  create_resources('composer::install', hiera_hash('composer::install', {}))
   create_resources('npm::install', hiera_hash('npm::install', {}))
 }
