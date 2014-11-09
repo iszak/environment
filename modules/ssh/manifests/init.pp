@@ -7,8 +7,14 @@
 # [*client*]
 #   Whether to install the SSH client
 #
+# [*client_package*]
+#   The package name for SSH client
+#
 # [*server*]
 #   Whether to install the SSH server
+#
+# [*server_package*]
+#   The package name for SSH client
 #
 # === Examples
 #
