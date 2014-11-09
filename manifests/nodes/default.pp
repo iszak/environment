@@ -1,18 +1,15 @@
 node default {
-  $users = hiera('user', {})
-  $files = hiera('file', {})
-
-  create_resources(user, $users)
-  create_resources(file, $files)
-
   hiera_include('classes')
 
-  create_resources('ssh::known_host', hiera('ssh::known_host', {}))
-  create_resources('ssh::authorized_key', hiera('ssh::authorized_key', {}))
+  create_resources(user, hiera_hash('user', {}))
+  create_resources(file, hiera_hash('file', {}))
 
-  create_resources('zsh::config', hiera('zsh::config', {}))
-  create_resources('sudoers::config', hiera('sudoers::config', {}))
+  create_resources('ssh::known_host', hiera_hash('ssh::known_host', {}))
+  create_resources('ssh::authorized_key', hiera_hash('ssh::authorized_key', {}))
 
-  create_resources('php::module', hiera('php::module', {}))
-  create_resources('git::clone', hiera('git::clone', {}))
+  create_resources('zsh::config', hiera_hash('zsh::config', {}))
+  create_resources('sudoers::config', hiera_hash('sudoers::config', {}))
+
+  create_resources('php::module', hiera_hash('php::module', {}))
+  create_resources('git::clone', hiera_hash('git::clone', {}))
 }
