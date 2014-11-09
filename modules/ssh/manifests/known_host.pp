@@ -36,7 +36,9 @@ define ssh::known_host (
 
   if (defined(File[$path_param]) == false) {
     file { $path_param:
-      ensure => present
+      ensure => present,
+      owner  => $user_param,
+      group  => $group_param,
     }
   }
 
