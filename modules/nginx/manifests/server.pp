@@ -51,22 +51,22 @@ define nginx::server (
   $server_name,
   $root,
 
-  $owner           = $::nginx::params::owner,
-  $group           = $::nginx::params::group,
+  $owner           = undef,
+  $group           = undef,
 
-  $sites_enabled   = $::nginx::params::sites_enabled,
-  $sites_available = $::nginx::params::sites_available,
+  $sites_enabled   = undef,
+  $sites_available = undef,
 
   $default_server  = false,
 
-  $host            = $::nginx::params::host,
-  $port            = $::nginx::params::port,
-  $index           = $::nginx::params::index,
+  $host            = undef,
+  $port            = undef,
+  $index           = undef,
 
-  $ipv6_only       = $::nginx::params::ipv6_only,
+  $ipv6_only       = undef,
 
-  $locations       = $::nginx::params::locations,
-  $error_pages     = $::nginx::params::error_pages,
+  $locations       = undef,
+  $error_pages     = undef,
 ) {
   include nginx
   include nginx::params

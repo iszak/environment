@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*package_name*]
+#   The package name to install
+#
 # [*owner*]
 #   The owner of any files created, default is root
 #
@@ -24,15 +27,22 @@
 #  class { 'nginx': }
 #
 class nginx (
+  $package_name    = undef,
+
   $owner           = undef,
   $group           = undef,
 
   $sites_available = undef,
   $sites_enabled   = undef,
 
-  $default_site    = undef
+  $default_site    = undef,
 ) {
   include nginx::params
+
+  $package_name_param = $package_name ? {
+    undef   => $::nginx::params::package_name,
+    default => $package_name,
+  }
 
   $owner_param = $owner ? {
     undef   => $::nginx::params::owner,
@@ -60,7 +70,7 @@ class nginx (
   }
 
 
-  package { 'nginx':
+  package { $package_name_param:
     ensure => latest
   }
 

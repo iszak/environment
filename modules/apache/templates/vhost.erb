@@ -1,1 +1,19 @@
-vhost.erb
+<% if not @host_param.nil? and not @port_param.nil? -%>
+<VirtualHost <%= @host_param %>:<%= @port_param %>>
+<% elsif not @port_param.nil? -%>
+<VirtualHost *:<%= @port_param %>>
+<% else -%>
+<VirtualHost <%= @host_param %>>
+<% end -%>
+
+<% unless @server_name.nil? -%>
+    ServerName <%= @server_name %>
+<% end -%>
+<% unless @server_admin_param.nil? -%>
+    ServerAdmin <%= @server_admin_param %>
+<% end -%>
+
+<% unless @document_root.nil? -%>
+    DocumentRoot <%= @document_root %>
+<% end -%>
+</VirtualHost>

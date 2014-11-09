@@ -7,6 +7,8 @@
 #  class { 'nginx::params': }
 #
 class nginx::params {
+  $package_name    = 'nginx'
+
   $owner           = 'root'
   $group           = 'root'
 

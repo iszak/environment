@@ -15,5 +15,6 @@ node default {
   create_resources('git::clone', hiera_hash('git::clone', {}))
 
   create_resources('php::module', hiera_hash('php::module', {}))
+  create_resources('apache::vhost', hiera_hash('apache::vhost', {}))
   create_resources('npm::install', hiera_hash('npm::install', {}))
 }
