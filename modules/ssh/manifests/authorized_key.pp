@@ -1,16 +1,16 @@
-# == Define: ssh::known_host
+# == Define: ssh::authorized_key
 #
-# A type to install ssh known hosts
+# A type to install ssh authorized keys
 #
 # === Parameters
 #
 # === Examples
 #
-#  ssh::known_host { 'github':
+#  ssh::authorized_key { 'github':
 #    fingerprint => 'string'
 #  }
 #
-define ssh::known_host (
+define ssh::authorized_key (
   $fingerprint,
   $user        = undef,
   $group       = undef,
@@ -29,7 +29,7 @@ define ssh::known_host (
   }
 
   $path_param = $path ? {
-    undef   => $::ssh::params::known_hosts_path,
+    undef   => "/home/${user_param}/.ssh/authorized_keys",
     default => $path,
   }
 
@@ -40,7 +40,7 @@ define ssh::known_host (
     }
   }
 
-  exec { "known host ${name}":
+  exec { "authorized key ${name}":
     require => File[$path_param],
     command => "/bin/echo '${fingerprint}' >> ${path_param}",
     user    => $user_param,
