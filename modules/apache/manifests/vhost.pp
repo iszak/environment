@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*priority*]
+#   The load priority of the server, default is 20
+#
 # [*host*]
 #   The host of the server, default is all
 #
@@ -38,6 +41,8 @@
 #  }
 #
 define apache::vhost (
+  $priority        = undef,
+
   $host            = undef,
   $port            = undef,
 
@@ -53,6 +58,10 @@ define apache::vhost (
   include apache
   include apache::params
 
+  $priority_param = $priority ? {
+    undef   => $::apache::params::priority,
+    default => $priority,
+  }
 
   $host_param = $host ? {
     undef   => $::apache::params::host,
@@ -87,8 +96,8 @@ define apache::vhost (
   }
 
 
-  $sites_enabled_path   = "${sites_enabled_param}/${name}"
-  $sites_available_path = "${sites_available_param}/${name}"
+  $sites_enabled_path   = "${sites_enabled_param}/${priority_param}-${name}.conf"
+  $sites_available_path = "${sites_available_param}/${priority_param}-${name}.conf"
 
 
 

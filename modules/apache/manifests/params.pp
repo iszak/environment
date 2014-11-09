@@ -16,6 +16,7 @@ class apache::params {
   $sites_enabled   = '/etc/apache2/sites-enabled/'
   $sites_available = '/etc/apache2/sites-available/'
 
-  $host            = ''
+  $priority        = '20'
+  $host            = '*'
   $port            = 80
 }
