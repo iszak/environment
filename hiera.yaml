@@ -8,3 +8,5 @@
   - common
 
 :logger: console
+
+:merge_behavior: deeper

@@ -13,6 +13,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
 
+  config.vm.provision "shell" do |shell|
+    shell.inline = "gem install deep_merge --quiet"
+  end
+
+
   config.vm.provision "puppet" do |puppet|
     puppet.options = "--verbose --debug"
 
