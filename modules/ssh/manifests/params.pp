@@ -15,7 +15,11 @@ class ssh::params {
 
 
   $user             = 'root'
+  $owner            = 'root'
   $group            = 'root'
 
   $known_hosts_path = '/etc/ssh/ssh_known_hosts'
+
+  $server_alive_count_max = 120
+  $server_alive_interval  = 30
 }

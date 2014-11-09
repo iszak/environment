@@ -39,10 +39,11 @@ define ssh::known_host (
       ensure => present,
       owner  => $user_param,
       group  => $group_param,
+      mode   => '0600',
     }
   }
 
-  exec { "known host ${name}":
+  exec { "ssh known host ${name}":
     require => File[$path_param],
     command => "/bin/echo '${fingerprint}' >> ${path_param}",
     user    => $user_param,

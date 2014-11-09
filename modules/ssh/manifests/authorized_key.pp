@@ -4,6 +4,18 @@
 #
 # === Parameters
 #
+# [*fingerprint*]
+#   The fingerprint of the authorized key
+#
+# [*user*]
+#   The user to create the authorized key file as
+#
+# [*group*]
+#   The group to create the authorized key file as
+#
+# [*path*]
+#   The path to create the authorized key file
+#
 # === Examples
 #
 #  ssh::authorized_key { 'github':
@@ -36,13 +48,14 @@ define ssh::authorized_key (
 
   if (defined(File[$path_param]) == false) {
     file { $path_param:
-      ensure  => present,
-      owner   => $user_param,
-      group   => $group_param,
+      ensure => present,
+      owner  => $user_param,
+      group  => $group_param,
+      mode   => '0600',
     }
   }
 
-  exec { "authorized key ${name}":
+  exec { "ssh authorized key ${name}":
     require => File[$path_param],
     command => "/bin/echo '${fingerprint}' >> ${path_param}",
     user    => $user_param,

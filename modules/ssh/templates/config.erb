@@ -1,5 +1,22 @@
 Host <%= @host_param %>
-  <% unless @identity_file_param.nil? %>
+<% unless @hostname_param.nil? %>
+  HostName <%= @hostname_param %>
+<% end %>
+<% unless @port_param.nil? %>
+  Port <%= @port_param %>
+<% end %>
+
+<% unless @user_param.nil? %>
+  User <%= @user_param %>
+<% end %>
+<% unless @identity_file_param.nil? %>
   IdentityFile <%= @identity_file_param %>
-  <% end %>
+<% end %>
+
+<% unless @server_alive_interval_param.nil? %>
+  ServerAliveInterval <%= @server_alive_interval_param %>
+<% end %>
+<% unless @server_alive_count_max_param.nil? %>
+  ServerAliveCountMax <%= @server_alive_count_max_param %>
+<% end %>
 
