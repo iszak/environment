@@ -18,7 +18,13 @@
 #   The server name, default is undefined
 #
 # [*document_root*]
-#   The document root
+#   The document root, default is undefined
+#
+# [*directory*]
+#   Directory directives
+#
+# [*directory_index*]
+#   Directory indexes
 #
 #
 # [*owner*]
@@ -49,6 +55,9 @@ define apache::vhost (
   $server_name     = undef,
   $document_root   = undef,
 
+  $directory       = undef,
+  $directory_index = undef,
+
   $owner           = undef,
   $group           = undef,
 
@@ -71,6 +80,17 @@ define apache::vhost (
   $port_param = $port ? {
     undef   => $::apache::params::port,
     default => $port,
+  }
+
+
+  $directory_param = $directory ? {
+    undef   => $::apache::params::directory,
+    default => $directory,
+  }
+
+  $directory_index_param = $directory_index ? {
+    undef   => $::apache::params::directory_index,
+    default => $directory_index,
   }
 
 
@@ -107,6 +127,7 @@ define apache::vhost (
     owner   => $owner_param,
     group   => $group_param,
     require => File[$sites_available_param],
+    notify  => Service['apache'],
   }
 
   file { $sites_enabled_path:

@@ -16,4 +16,16 @@
 <% unless @document_root.nil? -%>
     DocumentRoot <%= @document_root %>
 <% end -%>
+
+<% unless @directory_index_param.nil? -%>
+    DirectoryIndex <%= @directory_index_param.join(' ') %>
+<% end -%>
+
+<% @directory_param.each do |path,options| -%>
+    <Directory <%= path %>>
+<% unless options['require'].nil? -%>
+        Require <%= options['require'] %>
+<% end -%>
+    </Directory>
+<% end -%>
 </VirtualHost>

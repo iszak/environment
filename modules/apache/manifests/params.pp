@@ -19,4 +19,11 @@ class apache::params {
   $priority        = '20'
   $host            = '*'
   $port            = 80
+
+  $directory_index = [
+    'index.html',
+    'index.html',
+    'index.php'
+  ]
+  $directory       = []
 }
