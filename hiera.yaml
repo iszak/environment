@@ -5,7 +5,6 @@
   :datadir: /vagrant/hiera/
 
 :hierarchy:
-  - crowdwish
   - common
 
 :logger: console
