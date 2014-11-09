@@ -1,32 +1,14 @@
 node default {
-  include role::general
-  include role::backup
-  include role::web
-  include role::php
-  include role::ruby
-  include role::database
-  include role::nodejs
+  create_resources(user, hiera('user', {}))
+  create_resources(file, hiera('file', {}))
 
-  project::rails { '1001-beers-api':
-    user  => 'beers-api',
-    group => 'beers-api',
-    url   => 'https://github.com/iszak/1001-beers-api.git',
-    path  => '/home/beers-api/public_html/'
-  }
+  hiera_include('classes')
 
-  # User
-  user { 'iszak':
-    ensure     => present,
-    require    => Class['zsh'],
-    managehome => true,
-    shell      => '/bin/zsh'
-  }
+  create_resources('ssh::known_host', hiera('ssh::known_host', {}))
 
-  zsh::config { 'iszak':
-    require => User['iszak'],
-  }
+  create_resources('zsh::config', hiera('zsh::config', {}))
+  create_resources('sudoers::config', hiera('sudoers::config', {}))
 
-  sudoers::config { 'iszak':
-    require => User['iszak']
-  }
+  create_resources('php::module', hiera('php::module', {}))
+  create_resources('git::clone', hiera('git::clone', {}))
 }
