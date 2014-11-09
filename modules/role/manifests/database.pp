@@ -14,10 +14,6 @@ class role::database (
 
   if ($engine == 'postgresql') {
     class { 'postgresql': }
-
-    ufw::allow { 'postgresql':
-      service => 'postgresql'
-    }
   } else {
     fail('Database engine not supported')
   }
