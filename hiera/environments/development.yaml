@@ -1,0 +1,17 @@
+---
+file:
+    crowdwish_public_html:
+        ensure: absent
+    crowdwish_logs:
+        ensure: absent
+
+    uploadir_public_html:
+        ensure: absent
+    uploadir_logs:
+        ensure: absent
+
+user:
+    crowdwish:
+        ensure: absent
+    uploadir:
+        ensure: absent

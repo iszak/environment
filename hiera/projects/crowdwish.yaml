@@ -1,0 +1,22 @@
+---
+file:
+    crowdwish_public_html:
+        ensure: directory
+        require: User[crowdwish]
+        path: /home/crowdwish/public_html/
+        owner: crowdwish
+        group: crowdwish
+
+    crowdwish_logs:
+        ensure: directory
+        require: User[crowdwish]
+        path: /home/crowdwish/logs/
+        owner: crowdwish
+        group: crowdwish
+
+user:
+    crowdwish:
+        ensure: present
+        require: Class[zsh]
+        managehome: true
+        shell: /bin/zsh

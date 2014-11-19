@@ -46,8 +46,9 @@ define sudoers::config (
   include sudoers
   include sudoers::params
 
-  if $user == undef {
-    $user_param = $name
+  $user_param = $user ? {
+    undef   => $title,
+    default => $user,
   }
 
   $hosts_param = $hosts ? {

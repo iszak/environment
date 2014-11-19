@@ -14,6 +14,7 @@ define ssh::key (
   $private_key,
   $public_key,
   $user        = undef,
+  $owner       = undef,
   $group       = undef,
   $path        = undef
 ) {
@@ -22,6 +23,11 @@ define ssh::key (
   $user_param = $user ? {
     undef   => $::ssh::params::user,
     default => $user,
+  }
+
+  $owner_param = $owner ? {
+    undef   => $::ssh::params::owner,
+    default => $owner,
   }
 
   $group_param = $group ? {
@@ -37,14 +43,14 @@ define ssh::key (
 
   file { "${path_param}.key":
     content => $private_key,
-    owner   => $user_param,
+    owner   => $owner_param,
     group   => $group_param,
     mode    => '0600',
   }
 
   file { "${path_param}.pub":
     content => $public_key,
-    owner   => $user_param,
+    owner   => $owner_param,
     group   => $group_param,
     mode    => '0600',
   }

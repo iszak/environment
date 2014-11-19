@@ -5,8 +5,10 @@
   :datadir: /vagrant/hiera/
 
 :hierarchy:
-  - crowdwish
-  - uploadir
+  - environments/development
+  - projects/crowdwish
+  - projects/uploadir
+  - private
   - common
 
 :logger: console
