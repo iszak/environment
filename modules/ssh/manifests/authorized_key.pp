@@ -25,6 +25,7 @@
 define ssh::authorized_key (
   $fingerprint,
   $user        = undef,
+  $owner       = undef,
   $group       = undef,
   $path        = undef
 ) {
@@ -33,6 +34,11 @@ define ssh::authorized_key (
   $user_param = $user ? {
     undef   => $::ssh::params::user,
     default => $user,
+  }
+
+  $owner_param = $owner ? {
+    undef   => $::ssh::params::owner,
+    default => $owner,
   }
 
   $group_param = $group ? {
@@ -49,7 +55,7 @@ define ssh::authorized_key (
   if (defined(File[$path_param]) == false) {
     file { $path_param:
       ensure => present,
-      owner  => $user_param,
+      owner  => $owner_param,
       group  => $group_param,
       mode   => '0600',
     }

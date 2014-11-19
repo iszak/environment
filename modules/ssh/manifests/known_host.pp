@@ -12,11 +12,17 @@
 #
 define ssh::known_host (
   $fingerprint,
-  $owner        = undef,
+  $user        = undef,
+  $owner       = undef,
   $group       = undef,
   $path        = undef
 ) {
   include ssh
+
+  $user_param = $user ? {
+    undef   => $::ssh::params::user,
+    default => $user,
+  }
 
   $owner_param = $owner ? {
     undef   => $::ssh::params::owner,
@@ -29,7 +35,7 @@ define ssh::known_host (
   }
 
   $path_param = $path ? {
-    undef   => $::ssh::params::known_hosts_path,
+    undef   => "/home/${user_param}/.ssh/known_hosts",
     default => $path,
   }
 
@@ -46,7 +52,7 @@ define ssh::known_host (
   exec { "ssh known host ${name}":
     require => File[$path_param],
     command => "/bin/echo '${fingerprint}' >> ${path_param}",
-    owner   => $owner_param,
+    user    => $owner_param,
     group   => $group_param,
     unless  => "/bin/grep '${fingerprint}' ${path_param}"
   }
