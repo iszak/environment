@@ -1,17 +1,76 @@
 ---
 file:
     crowdwish_public_html:
-        ensure: absent
+        ensure: directory
+        path: /home/vagrant/public_html/crowdwish/
+        require: User[vagrant]
+        owner: vagrant
+        group: vagrant
+
     crowdwish_logs:
         ensure: absent
+        require: User[vagrant]
+
+    crowdwish_ssh:
+        ensure: absent
+        require: User[vagrant]
+
 
     uploadir_public_html:
-        ensure: absent
+        ensure: directory
+        path: /home/vagrant/public_html/uploadir/
+        require: User[vagrant]
+        owner: vagrant
+        group: vagrant
+
     uploadir_logs:
         ensure: absent
+        require: User[vagrant]
+
 
 user:
     crowdwish:
         ensure: absent
+
     uploadir:
         ensure: absent
+
+
+ssh::key:
+    crowdwish:
+        require: File[crowdwish_ssh]
+        user: vagrant
+        owner: vagrant
+        group: vagrant
+
+
+ssh::config:
+    crowdwish:
+        owner: vagrant
+        group: vagrant
+
+
+ssh::known_host:
+    crowdwish_gitlab1:
+        require: User[vagrant]
+        user: vagrant
+        owner: vagrant
+        group: vagrant
+
+    crowdwish_gitlab2:
+        require: User[vagrant]
+        user: vagrant
+        owner: vagrant
+        group: vagrant
+
+
+git::clone:
+    crowdwish_client:
+        user: vagrant
+        group: vagrant
+        path: /home/vagrant/public_html/crowdwish/client/
+
+    crowdwish_backend:
+        user: vagrant
+        group: vagrant
+        path: /home/vagrant/public_html/crowdwish/backend/

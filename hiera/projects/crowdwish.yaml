@@ -14,9 +14,47 @@ file:
         owner: crowdwish
         group: crowdwish
 
+    crowdwish_ssh:
+        ensure: directory
+        require: User[crowdwish]
+        path: /home/crowdwish/.ssh/
+
+
+git::clone:
+    crowdwish_client:
+        user: crowdwish
+        group: crowdwish
+        url: git@git.kdigital.net:crowdwish/client.git
+        path: /home/crowdwish/public_html/client/
+        depth: 1
+
+    crowdwish_backend:
+        user: crowdwish
+        group: crowdwish
+        url: git@git.kdigital.net:crowdwish/backend.git
+        path: /home/crowdwish/public_html/backend/
+        depth: 1
+
+
 user:
     crowdwish:
         ensure: present
         require: Class[zsh]
         managehome: true
         shell: /bin/zsh
+
+
+ssh::known_host:
+    crowdwish_gitlab1:
+        require: User[crowdwish]
+        fingerprint: '|1|jFMAjbKXsCo+bcUYuaFuaRPSTfw=|NO2jCgvGuWcrOgNm7m2es5J6hsE= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMXD4lrkJ2LfwypuAsGF9fNeAi8I4vO+Am2AH3/IHz4eIiIoA91ikeF4qfLFKECBBn1VIjRt4uGdhDK4LqVirkM='
+        user: crowdwish
+        owner: crowdwish
+        group: crowdwish
+
+    crowdwish_gitlab2:
+        require: User[crowdwish]
+        fingerprint: '|1|AaYdwoVDMGmRMi/DjHMKBIZXNwI=|QKjF9kDTQtDubziPlQgiFeWd8Pw= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMXD4lrkJ2LfwypuAsGF9fNeAi8I4vO+Am2AH3/IHz4eIiIoA91ikeF4qfLFKECBBn1VIjRt4uGdhDK4LqVirkM='
+        user: crowdwish
+        owner: crowdwish
+        group: crowdwish

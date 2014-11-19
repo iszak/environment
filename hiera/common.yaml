@@ -1,21 +1,38 @@
 ---
 classes:
     - apt
+    - git
     - ssh
     - sudoers
     - zsh
 
+
+file:
+    iszak_ssh:
+        ensure: directory
+        require: User[vagrant]
+        path: /home/iszak/.ssh/
+
+
 user:
+    vagrant:
+        ensure: present
+        require: Class[zsh]
+        managehome: true
+        shell: /bin/zsh
+
     iszak:
         ensure: present
         require: Class[zsh]
         managehome: true
         shell: /bin/zsh
 
+
 zsh::config:
     iszak:
         owner: iszak
         group: iszak
+
 
 sudoers::config:
     iszak:
