@@ -8,7 +8,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.forward_agent = true
 
-  config.vm.synced_folder "./home", "/home/vagrant/public_html"
+  config.vm.synced_folder "./home",
+                          "/home/vagrant/public_html",
+                          mount_options: [
+                            "dmode=0777",
+                            "fmode=0666"
+                          ]
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
