@@ -1,4 +1,17 @@
 ---
+classes:
+    - apache
+    - php
+    - postgresql
+
+user:
+    crowdwish:
+        ensure: present
+        require: Class[zsh]
+        managehome: true
+        shell: /bin/zsh
+
+
 file:
     crowdwish_public_html:
         ensure: directory
@@ -20,6 +33,22 @@ file:
         path: /home/crowdwish/.ssh/
 
 
+ssh::known_host:
+    crowdwish_gitlab1:
+        require: User[crowdwish]
+        fingerprint: '|1|jFMAjbKXsCo+bcUYuaFuaRPSTfw=|NO2jCgvGuWcrOgNm7m2es5J6hsE= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMXD4lrkJ2LfwypuAsGF9fNeAi8I4vO+Am2AH3/IHz4eIiIoA91ikeF4qfLFKECBBn1VIjRt4uGdhDK4LqVirkM='
+        user: crowdwish
+        owner: crowdwish
+        group: crowdwish
+
+    crowdwish_gitlab2:
+        require: User[crowdwish]
+        fingerprint: '|1|AaYdwoVDMGmRMi/DjHMKBIZXNwI=|QKjF9kDTQtDubziPlQgiFeWd8Pw= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMXD4lrkJ2LfwypuAsGF9fNeAi8I4vO+Am2AH3/IHz4eIiIoA91ikeF4qfLFKECBBn1VIjRt4uGdhDK4LqVirkM='
+        user: crowdwish
+        owner: crowdwish
+        group: crowdwish
+
+
 git::clone:
     crowdwish_client:
         user: crowdwish
@@ -36,25 +65,25 @@ git::clone:
         depth: 1
 
 
-user:
+apache::vhost:
+    crowdwish_client:
+        server_name: crowdwish.dev
+        document_root: /home/crowdwish/public_html/client/
+        directory:
+            /home/crowdwish/public_html/backend/web/public/:
+                options: all
+                allow_override: all
+                require: all granted
+
+
+    crowdwish_backend:
+        server_name: api.crowdwish.dev
+        document_root: /home/crowdwish/public_html/backend/web/public/
+
+
+postgresql::user:
     crowdwish:
-        ensure: present
-        require: Class[zsh]
-        managehome: true
-        shell: /bin/zsh
-
-
-ssh::known_host:
-    crowdwish_gitlab1:
-        require: User[crowdwish]
-        fingerprint: '|1|jFMAjbKXsCo+bcUYuaFuaRPSTfw=|NO2jCgvGuWcrOgNm7m2es5J6hsE= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMXD4lrkJ2LfwypuAsGF9fNeAi8I4vO+Am2AH3/IHz4eIiIoA91ikeF4qfLFKECBBn1VIjRt4uGdhDK4LqVirkM='
-        user: crowdwish
-        owner: crowdwish
-        group: crowdwish
-
-    crowdwish_gitlab2:
-        require: User[crowdwish]
-        fingerprint: '|1|AaYdwoVDMGmRMi/DjHMKBIZXNwI=|QKjF9kDTQtDubziPlQgiFeWd8Pw= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMXD4lrkJ2LfwypuAsGF9fNeAi8I4vO+Am2AH3/IHz4eIiIoA91ikeF4qfLFKECBBn1VIjRt4uGdhDK4LqVirkM='
-        user: crowdwish
-        owner: crowdwish
-        group: crowdwish
+        username: crowdwish
+        superuser: false
+        createdb: true
+        createrole: false

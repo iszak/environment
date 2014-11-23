@@ -27,6 +27,10 @@ file:
         ensure: absent
         require: User[vagrant]
 
+    uploadir_ssh:
+        ensure: absent
+        require: User[vagrant]
+
 
 user:
     crowdwish:
@@ -74,3 +78,21 @@ git::clone:
         user: vagrant
         group: vagrant
         path: /home/vagrant/public_html/crowdwish/backend/
+
+
+apache::vhost:
+    crowdwish_client:
+        document_root: /home/vagrant/public_html/crowdwish/client/
+        directory:
+            /home/vagrant/public_html/crowdwish/client/:
+                options: all
+                allow_override: all
+                require: all granted
+
+    crowdwish_backend:
+        document_root: /home/vagrant/public_html/crowdwish/backend/web/public/
+        directory:
+            /home/vagrant/public_html/crowdwish/backend/web/public/:
+                options: all
+                allow_override: all
+                require: all granted

@@ -7,13 +7,6 @@ classes:
     - zsh
 
 
-file:
-    iszak_ssh:
-        ensure: directory
-        require: User[vagrant]
-        path: /home/iszak/.ssh/
-
-
 user:
     vagrant:
         ensure: present
@@ -26,6 +19,14 @@ user:
         require: Class[zsh]
         managehome: true
         shell: /bin/zsh
+
+
+file:
+    iszak_ssh:
+        ensure: directory
+        require: User[vagrant]
+        path: /home/iszak/.ssh/
+
 
 
 zsh::config:

@@ -1,4 +1,12 @@
 ---
+user:
+    uploadir:
+        ensure: present
+        require: Class[zsh]
+        managehome: true
+        shell: /bin/zsh
+
+
 file:
     uploadir_public_html:
         ensure: directory
@@ -14,10 +22,7 @@ file:
         owner: uploadir
         group: uploadir
 
-
-user:
-    uploadir:
-        ensure: present
-        require: Class[zsh]
-        managehome: true
-        shell: /bin/zsh
+    uploadir_ssh:
+        ensure: directory
+        require: User[uploadir]
+        path: /home/uploadir/.ssh/
