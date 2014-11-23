@@ -65,6 +65,10 @@ git::clone:
         depth: 1
 
 
+apache::module:
+    php5: {}
+
+
 apache::vhost:
     crowdwish_client:
         server_name: crowdwish.dev
@@ -80,6 +84,14 @@ apache::vhost:
         server_name: api.crowdwish.dev
         document_root: /home/crowdwish/public_html/backend/web/public/
 
+php::module:
+    apc:
+        package_prefix: php
+    curl: {}
+    intl: {}
+    pgsql: {}
+
+
 
 postgresql::user:
     crowdwish:
@@ -87,3 +99,12 @@ postgresql::user:
         superuser: false
         createdb: true
         createrole: false
+
+
+composer::install:
+    crowdwish:
+        require:
+            - Php::module[curl]
+        path: /home/crowdwish/public_html/backend/web
+        user: crowdwish
+        group: crowdwish

@@ -96,3 +96,11 @@ apache::vhost:
                 options: all
                 allow_override: all
                 require: all granted
+
+
+composer::install:
+    crowdwish:
+        require: Git::clone[crowdwish_backend]
+        path: /home/vagrant/public_html/crowdwish/backend/web
+        user: vagrant
+        group: vagrant
