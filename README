@@ -2,6 +2,11 @@
 
 This is a placeholder repository for a server environment, eventually all the puppet modules will be split into separate repositories and versioned.
 
+## Setup
+
+    bundle install --path=.bundle
+
+
 ## Apache
 
 ## Apt
