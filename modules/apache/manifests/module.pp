@@ -32,7 +32,12 @@ define apache::module (
     default => $package_prefix,
   }
 
-  package { "${package_prefix_param}-${module_param}":
-    ensure => latest
+  if ($module != 'rewrite') {
+    package { "${package_prefix_param}-${module_param}":
+      ensure => latest
+    }
   }
+
+  # exec { "${::apache:a2mod_bin_path}/a2enmod ${module}":
+  # }
 }

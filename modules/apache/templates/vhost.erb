@@ -23,6 +23,12 @@
 
 <% @directory_param.each do |path,options| -%>
     <Directory <%= path %>>
+<% unless options['options'].nil? -%>
+        Options <%= options['options'] %>
+<% end -%>
+<% unless options['allow_override'].nil? -%>
+        AllowOverride <%= options['allow_override'] %>
+<% end -%>
 <% unless options['require'].nil? -%>
         Require <%= options['require'] %>
 <% end -%>
