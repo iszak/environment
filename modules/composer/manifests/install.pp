@@ -13,6 +13,12 @@
 # [*path*]
 #   The path to run composer install
 #
+# [*home*]
+#   The composer home
+#
+# [*timeout*]
+#   The composer install timeout
+#
 # === Examples
 #
 #  composer::install { 'name':
@@ -21,9 +27,10 @@
 #
 define composer::install (
   $path,
-  $user  = undef,
-  $group = undef,
-  $home  = undef,
+  $user    = undef,
+  $group   = undef,
+  $home    = undef,
+  $timeout = undef,
 ) {
   include composer
   include composer::params
@@ -43,11 +50,17 @@ define composer::install (
     default => $home,
   }
 
+  $timeout_param = $timeout ? {
+    undef   => $::composer::params::install_timeout,
+    default => $timeout,
+  }
+
   exec { "composer install ${name}":
     command     => "${path}/composer.phar install",
     user        => $user_param,
     group       => $group_param,
     cwd         => $path,
+    timeout     => $timeout_param,
     environment => ["COMPOSER_HOME=${home_param}"],
     creates     => "${path}/vendor/composer/",
   }
