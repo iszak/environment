@@ -1,4 +1,4 @@
-# == Class: composer::install
+  # == Class: composer::install
 #
 # A class to install node modules
 #
@@ -23,6 +23,7 @@ define composer::install (
   $path,
   $user  = undef,
   $group = undef,
+  $home  = undef,
 ) {
   include composer
   include composer::params
@@ -37,11 +38,17 @@ define composer::install (
     default => $group,
   }
 
+  $home_param = $home ? {
+    undef   => "/home/${install_user}/",
+    default => $home,
+  }
+
   exec { "composer install ${name}":
-    command => "${path}/composer.phar install",
-    user    => $user_param,
-    group   => $group_param,
-    cwd     => $path,
-    creates => "${path}/vendor/composer/",
+    command     => "${path}/composer.phar install",
+    user        => $user_param,
+    group       => $group_param,
+    cwd         => $path,
+    environment => ["COMPOSER_HOME=${home_param}"],
+    creates     => "${path}/vendor/composer/",
   }
 }
