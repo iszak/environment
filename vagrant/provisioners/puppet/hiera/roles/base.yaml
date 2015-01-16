@@ -1,0 +1,10 @@
+---
+classes:
+    - apt
+    - apt::unattended_upgrades
+    - git
+    - ntp
+
+
+# Apt
+apt::always_apt_update: true

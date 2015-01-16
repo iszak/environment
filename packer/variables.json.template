@@ -1,0 +1,5 @@
+{
+  "ssh_username": "USERNAME",
+  "ssh_password": "PASSWORD",
+  "hostname": "HOSTNAME"
+}

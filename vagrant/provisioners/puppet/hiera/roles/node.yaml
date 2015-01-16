@@ -1,0 +1,20 @@
+---
+classes:
+    - nodejs
+
+
+nodejs::version: latest
+nodejs::dev_package: true
+nodejs::manage_repo: false
+
+package:
+    npm:
+        ensure: latest
+        require: Class[nodejs]
+
+file:
+    node:
+        ensure: link
+        require: Class[nodejs]
+        path: /usr/bin/node
+        target: /usr/bin/nodejs

@@ -1,0 +1,59 @@
+---
+:backends: yaml
+
+:yaml:
+  :datadir: /vagrant/provisioners/puppet/hiera/
+
+:hierarchy:
+    - private
+
+    - environments/development
+    - environments/shared
+
+    - projects/development/blog
+    - projects/shared/blog
+
+
+    - projects/development/crowdwish-backend
+    - projects/shared/crowdwish-backend
+
+    - projects/development/crowdwish-client
+    - projects/shared/crowdwish-client
+
+
+    - projects/development/uploadir-api
+    - projects/shared/uploadir-api
+
+
+    - projects/development/phoenix-client
+    - projects/shared/phoenix-client
+
+    - projects/development/phoenix-server
+    - projects/shared/phoenix-server
+
+
+    - projects/development/psdless
+    - projects/shared/psdless
+
+
+    - projects/development/1001-beers-api
+    - projects/shared/1001-beers-api
+
+    - projects/development/1001-beers-website
+    - projects/shared/1001-beers-website
+
+    - roles/postgresql
+    - roles/node
+    - roles/ruby
+    - roles/php
+    - roles/web
+    - roles/base
+
+    - users/vagrant
+    - users/iszak
+
+    - common
+
+:logger: console
+
+:merge_behavior: deeper

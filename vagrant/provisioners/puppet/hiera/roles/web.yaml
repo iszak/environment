@@ -1,0 +1,17 @@
+---
+classes:
+    - apache
+
+apache::default_mods: false
+apache::default_vhost: false
+
+apache::mod:
+    deflate: {}
+    ssl: {}
+    proxy: {}
+    proxy_http: {}
+
+apache::vhost:
+    localhost:
+        port: 80
+        docroot: /var/www/

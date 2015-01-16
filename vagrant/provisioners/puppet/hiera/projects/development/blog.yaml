@@ -1,0 +1,17 @@
+---
+project::ruby:
+    blog:
+        user: vagrant
+        owner: vagrant
+        group: vagrant
+
+        repo_path: public/blog
+
+        environment: development
+
+ruby::rake:
+    blog_generate:
+        rails_env: development
+        user: vagrant
+        group: vagrant
+        cwd: /home/vagrant/public/blog/

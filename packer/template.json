@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "ssh_username": "iszak",
+    "ssh_password": "password",
+    "hostname": "hostname"
+  },
+
+
+  "builders": [{
+    "type": "virtualbox-iso",
+
+    "guest_os_type": "Ubuntu_64",
+
+    "headless": false,
+    "disk_size": "10000",
+
+    "iso_url": "http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
+    "iso_checksum": "946a6077af6f5f95a51f82fdc44051c7aa19f9cfc5f737954845a6050543d7c2",
+    "iso_checksum_type": "sha256",
+
+    "http_directory": ".",
+    "output_directory": "output/",
+
+    "boot_command": [
+      "<esc><esc><enter><wait>",
+      "/install/vmlinuz noapic ",
+      "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/config/preseed.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{user `hostname`}} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+      "initrd=/install/initrd.gz -- <enter>"
+    ],
+
+
+    "shutdown_command": "echo {{user `ssh_password`}} | sudo -S shutdown -P now",
+
+    "ssh_username": "{{user `ssh_username`}}",
+    "ssh_password": "{{user `ssh_password`}}",
+    "ssh_wait_timeout": "15m",
+
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "2048"],
+      ["modifyvm", "{{.Name}}", "--cpus", "2"]
+    ]
+  }],
+
+
+
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "scripts": [
+      "provisioners/shell/ruby.sh",
+      "provisioners/shell/puppet.sh",
+      "provisioners/shell/virtualbox.sh",
+      "provisioners/shell/vagrant.sh"
+    ]
+  }],
+
+
+
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "compression_level": 9,
+      "output": "build/ubuntu-14.04.1-{{.Provider}}.box"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+- Configure vagrant git user

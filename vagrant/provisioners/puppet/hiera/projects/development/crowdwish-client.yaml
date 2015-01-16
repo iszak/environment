@@ -1,0 +1,6 @@
+---
+project::static:
+    crowdwish_client:
+        user: vagrant
+        owner: vagrant
+        group: vagrant

@@ -1,0 +1,26 @@
+---
+
+user:
+    iszak:
+        ensure: present
+        managehome: true
+
+postgresql::server::role:
+    iszak:
+        password_hash: md5688bf2f9ed7047eaba93a51825a06c78
+        createdb: true
+        createrole: true
+        superuser: true
+        replication: true
+
+git::config:
+    user.name:
+        require: Class[git]
+        value: Iszak Bryan
+    user.email:
+        require: Class[git]
+        value: iszak.bryan@gmail.com
+
+package:
+    vim:
+        ensure: latest

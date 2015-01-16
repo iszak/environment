@@ -1,0 +1,6 @@
+---
+classes:
+    - apache
+    - apache::mod::php
+
+apache::mpm_module: prefork
