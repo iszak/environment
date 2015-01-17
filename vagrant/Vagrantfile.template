@@ -2,19 +2,16 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "HOSTNAME"
-  # config.vm.box      = "../packer/build/ubuntu-14.04.1-virtualbox.box"
-
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.box_check_update = true
+  config.vm.box      = "../packer/build/ubuntu-14.04.1-virtualbox.box"
 
   config.vm.network "private_network", ip: "192.168.13.37"
 
-  # config.ssh.username = "USERNAME"
-  # config.ssh.password = "PASSWORD"
   config.ssh.forward_agent = true
 
-  config.vm.synced_folder "shared/public/", "/home/vagrant/public/"
-  config.vm.synced_folder "shared/log/", "/home/vagrant/log/"
+  config.sshfs.paths = {
+    "/home/vagrant/public" => "shared/public/",
+    "/home/vagrant/log"    => "shared/log/"
+  }
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
@@ -31,6 +28,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.manifests_path    = "provisioners/puppet/manifests"
     puppet.manifest_file     = "default.pp"
 
-    puppet.options           = "--verbose --debug"
+    # puppet.options           = "--verbose --debug"
   end
 end
