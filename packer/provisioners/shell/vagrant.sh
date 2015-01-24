@@ -4,7 +4,9 @@
 date > /etc/vagrant_box_build_time
 
 # Create vagrant user with password
-useradd --groups sudo --shell /bin/bash --create-home vagrant
+if [ -z "$(getent passwd vagrant)" ]; then
+    useradd --groups sudo --shell /bin/bash --create-home vagrant
+fi
 
 echo "vagrant:vagrant" | chpasswd
 
