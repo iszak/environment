@@ -56,21 +56,10 @@ fi
 #ssh-keygen -f file.rsa -t rsa -N ''
 
 # Copy templates
-# if [ ! -f "$PACKER_VARIABLES" ]; then
-    cp "$PACKER_VARIABLES.template" "$PACKER_VARIABLES"
-# fi
-
-# if [ ! -f "$UBUNTU_PRESEED" ]; then
-    cp "$UBUNTU_PRESEED.template" "$UBUNTU_PRESEED"
-# fi
-
-# if [ ! -f "$VAGRANT_FILE" ]; then
-    cp "$VAGRANT_FILE.template" "$VAGRANT_FILE"
-# fi
-
-# if [ ! -f "$HIERA_USER" ]; then
-    cp "$HIERA_USER.template" "$HIERA_USER"
-# fi
+cp "$PACKER_VARIABLES.template" "$PACKER_VARIABLES"
+cp "$UBUNTU_PRESEED.template" "$UBUNTU_PRESEED"
+cp "$VAGRANT_FILE.template" "$VAGRANT_FILE"
+cp "$HIERA_USER.template" "$HIERA_USER"
 
 # TODO: Fix
 password_hash=$(echo -n "$os_password$os_username" | md5)
