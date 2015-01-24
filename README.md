@@ -12,6 +12,11 @@
 - Install latest [VirtualBox](https://www.virtualbox.org/)
 
 
+### Packer
+
+- Install latest [Packer](https://packer.io/)
+
+
 ## Configuration
 
 Run ```./setup.sh```
