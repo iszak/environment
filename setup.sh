@@ -5,39 +5,41 @@ UBUNTU_PRESEED="packer/config/preseed.cfg"
 VAGRANT_FILE="vagrant/Vagrantfile"
 HIERA_USER="vagrant/provisioners/puppet/hiera/users/user.yaml"
 
-echo "Enter a full name: "
-read full_name
-
-if [ -z "$full_name" ]; then
-    full_name="Vagrant"
-fi
-
-echo "Enter a username: "
+echo "Enter a username for the OS (vagrant): "
 read username
 
 if [ -z "$username" ]; then
     username="vagrant"
 fi
 
-echo "Enter a email: "
-read email
+echo "Enter a hostname for the OS (vagrant): "
+read hostname
 
-if [ -z "$email" ]; then
-    email="email@address.com"
+if [ -z "$hostname" ]; then
+    hostname="vagrant"
 fi
 
-echo "Enter a password: "
+
+echo "Enter a password (vagrant): "
 read password
 
 if [ -z "$password" ]; then
     password="vagrant"
 fi
 
-echo "Enter a hostname: "
-read hostname
 
-if [ -z "$hostname" ]; then
-    hostname="vagrant"
+echo "Enter a email for GitHub (email@address.com): "
+read email
+
+if [ -z "$email" ]; then
+    email="email@address.com"
+fi
+
+echo "Enter a full name for GitHub (Vagrant): "
+read full_name
+
+if [ -z "$full_name" ]; then
+    full_name="Vagrant"
 fi
 
 
