@@ -10,5 +10,5 @@ mod 'puppetlabs/ruby', '~> 0.4.0'
 mod 'puppetlabs/vcsrepo', '~> 1.2.0'
 mod 'puppetlabs/git', '~> 0.3.0'
 
-mod 'iszak-project', :git => 'git://github.com/iszak/puppet-project.git'
-mod 'iszak-crashplan', :git => 'git://github.com/iszak/puppet-crashplan.git'
+mod 'iszak/project', :git => 'git://github.com/iszak/puppet-project.git'
+mod 'iszak/crashplan', :git => 'git://github.com/iszak/puppet-crashplan.git'
