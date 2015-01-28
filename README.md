@@ -35,14 +35,14 @@ packer build -var-file=variables.json template.json
 
 ## Puppet / Hiera
 
-Edit vagrant/puppet/hiera.yaml and add projects you want, example below
+Edit vagrant/provisioners/puppet/hiera.yaml and add projects you want, example below
 
 ```
 ---
 :backends: yaml
 
 :yaml:
-  :datadir: /vagrant/vagrant/puppet/hiera/
+  :datadir: /vagrant/provisioners/puppet/hiera/
 
 :hierarchy:
     - environments/development
@@ -65,7 +65,7 @@ Edit vagrant/puppet/hiera.yaml and add projects you want, example below
 ```
 
 
-Create **vagrant/puppet/hiera/private.yaml** example below
+Create **vagrant/provisioners/puppet/hiera/private.yaml** example below
 
 ```
 ---
