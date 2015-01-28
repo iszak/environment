@@ -35,7 +35,7 @@ packer build -var-file=variables.json template.json
 
 ## Puppet / Hiera
 
-Edit vagrant/provisioners/puppet/hiera.yaml and add projects you want, example below
+Edit vagrant/provisioners/puppet/hiera/hiera.yaml and add projects you want, example below
 
 ```
 ---
@@ -50,8 +50,8 @@ Edit vagrant/provisioners/puppet/hiera.yaml and add projects you want, example b
     - environments/development
     - environments/shared
 
-    - projects/development/crowdwish
-    - projects/shared/crowdwish
+    - projects/development/crowdwish-client
+    - projects/shared/crowdwish-client
 
     - users/user
     - users/vagrant
