@@ -45,6 +45,8 @@ Edit vagrant/provisioners/puppet/hiera.yaml and add projects you want, example b
   :datadir: /vagrant/provisioners/puppet/hiera/
 
 :hierarchy:
+    - private
+    
     - environments/development
     - environments/shared
 
