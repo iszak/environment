@@ -71,7 +71,7 @@ Create **vagrant/provisioners/puppet/hiera/private.yaml** example below
 ---
 file:
     vagrant_ssh_default:
-        content: "PERSONAL KEY"
+        content: "PRIVATE KEY"
 
 project::static:
     crowdwish_client:
