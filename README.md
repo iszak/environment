@@ -5,16 +5,18 @@
 ### Vagrant
 
 - Install latest [Vagrant](https://www.vagrantup.com/)
-- Install [vagrant-sshfs](https://github.com/fabiokr/vagrant-sshfs) plugin ```vagrant plugin install vagrant-sshfs```
 
 ### VirtualBox
 
 - Install latest [VirtualBox](https://www.virtualbox.org/)
 
-
 ### Packer
 
 - Install latest [Packer](https://packer.io/)
+
+### SSHFS
+- Install [vagrant-sshfs](https://github.com/fabiokr/vagrant-sshfs) plugin ```vagrant plugin install vagrant-sshfs```
+- Install [OSX Fuse](https://github.com/osxfuse/osxfuse/releases) and [SSHFS](https://github.com/osxfuse/sshfs/releases)
 
 
 ## Configuration
@@ -27,7 +29,7 @@ Build the base vagrant box
 
 ```
 cd packer/
-packer build template.json
+packer build -var-file=variables.json template.json
 cd vagrant/
 vagrant up
 ```
