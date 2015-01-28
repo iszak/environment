@@ -1,1 +1,3 @@
 - Configure vagrant git user
+- Remove public key from project
+- Allow specifying path to private key per project
