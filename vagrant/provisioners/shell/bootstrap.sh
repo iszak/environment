@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 sudo apt-get install bundler --yes
+sudo apt-get install git --yes
 
 # Bundler
 cd /vagrant/provisioners/puppet/
