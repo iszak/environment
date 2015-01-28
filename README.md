@@ -30,12 +30,10 @@ Build the base vagrant box
 ```
 cd packer/
 packer build -var-file=variables.json template.json
-cd vagrant/
-vagrant up
 ```
 
 
-## Vagrant
+## Puppet / Hiera
 
 Edit vagrant/puppet/hiera.yaml and add projects you want, example below
 
@@ -85,4 +83,10 @@ Change the personal key with the key you will be pushing/pulling with and the th
 
 ```
 cat ~/.ssh/id_rsa | perl -p -e 's/\n/\\n/' | pbcopy
+```
+
+## Vagrant
+```
+cd vagrant/
+vagrant up
 ```
