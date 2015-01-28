@@ -53,7 +53,10 @@ Edit vagrant/provisioners/puppet/hiera.yaml and add projects you want, example b
     - projects/development/crowdwish
     - projects/shared/crowdwish
 
-    - roles/database
+    - users/user
+    - users/vagrant
+
+    - roles/postgresql
     - roles/node
     - roles/ruby
     - roles/php
