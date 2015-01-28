@@ -9,8 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
 
   config.sshfs.paths = {
-    "/home/vagrant/public" => "shared/public/",
-    "/home/vagrant/log"    => "shared/log/"
+    "/home/vagrant/public" => "mount/public/",
+    "/home/vagrant/log"    => "mount/log/"
   }
 
   config.vm.provider "virtualbox" do |vb|
