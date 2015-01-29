@@ -1,4 +1,7 @@
 ---
+classes:
+    - apache::mod::rewrite
+
 project::zf2:
     crowdwish_backend:
         require:
