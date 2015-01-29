@@ -13,7 +13,6 @@ file:
         require:
             - Project::Client[vagrant]
         path: /home/vagrant/.gitconfig
-        content: "IdentityFile ~/.ssh/default.key\n"
         owner: vagrant
         group: vagrant
 
@@ -22,6 +21,7 @@ file:
         require:
             - Project::Client[vagrant]
         path: /home/vagrant/.ssh/config
+        content: "IdentityFile ~/.ssh/default.key\n"
         owner: vagrant
         group: vagrant
         mode: "0600"
