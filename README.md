@@ -46,7 +46,7 @@ Edit vagrant/provisioners/puppet/hiera/hiera.yaml and add projects you want, exa
 
 :hierarchy:
     - private
-    
+
     - environments/development
     - environments/shared
 
@@ -80,8 +80,7 @@ file:
 
 project::static:
     crowdwish_client:
-        ssh_private_key: "PRIVATE KEY"
-        ssh_public_key: "PUBLIC KEY"
+        ssh_key: "PRIVATE KEY"
 ```
 
 Change the personal key with the key you will be pushing/pulling with and the they key for the project, this may be the same key. Replace all the new lines with "\n" string literal, you can copy it with the command below

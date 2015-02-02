@@ -15,6 +15,9 @@ postgresql::server::role:
 
 git::config:
     user.name:
+        user: USERNAME
         value: FULLNAME
+
     user.email:
+        user: USERNAME
         value: EMAIL

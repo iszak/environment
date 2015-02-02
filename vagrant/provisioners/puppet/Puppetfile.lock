@@ -34,7 +34,7 @@ GIT
 GIT
   remote: git://github.com/iszak/puppet-project.git
   ref: master
-  sha: ec7fd69e110421d51a653b48962bcd6b30018990
+  sha: fe878c696528c73eac2f8c8d910413fb936a61bb
   specs:
     iszak-project (0.0.1)
 
