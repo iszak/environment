@@ -27,14 +27,14 @@ FORGE
 GIT
   remote: git://github.com/iszak/puppet-crashplan.git
   ref: master
-  sha: c9119bf16cd4e27478bfdcff17abdd39f54b7534
+  sha: 00ade10cc42230d975beaf2aa880a14a38cd78e5
   specs:
     iszak-crashplan (0.0.1)
 
 GIT
   remote: git://github.com/iszak/puppet-project.git
   ref: master
-  sha: 0d0dfac2b823bce3a0f82d9a8003af7e2a791dc1
+  sha: ec7fd69e110421d51a653b48962bcd6b30018990
   specs:
     iszak-project (0.0.1)
 
