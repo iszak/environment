@@ -1,6 +1,12 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    garethr-golang (0.1.1)
+      puppetlabs-apt (>= 1.1.0)
+      puppetlabs-stdlib (>= 3.2.0)
+    garethr-rustlang (0.0.1)
+      puppetlabs-apt (>= 1.1.0)
+      puppetlabs-stdlib (>= 3.2.0)
     puppetlabs-apache (1.2.0)
       puppetlabs-concat (>= 1.1.1)
       puppetlabs-stdlib (>= 2.4.0)
@@ -39,6 +45,8 @@ GIT
     iszak-project (0.0.1)
 
 DEPENDENCIES
+  garethr-golang (~> 0.1.1)
+  garethr-rustlang (~> 0.0.1)
   iszak-crashplan (>= 0)
   iszak-project (>= 0)
   puppetlabs-apache (~> 1.2.0)
