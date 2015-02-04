@@ -29,7 +29,7 @@ project::zf2:
 exec:
     crowdwish_backend_domain:
         require: Project::zf2[crowdwish_backend]
-        command: /bin/sed -i 's/example\.com/crowdwish\.dev/' *.local.php
+        command: /bin/sed -i 's/example\.com/crowdwish\.dev/' *local.php
         cwd: /home/vagrant/public/crowdwish-backend/web/config/autoload/
 
 package:
