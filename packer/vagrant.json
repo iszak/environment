@@ -40,6 +40,11 @@
     "ssh_password": "{{user `ssh_password`}}",
     "ssh_wait_timeout": "15m",
 
+    "environment_vars": [
+      "ssh_key={{user `ssh_key`}}",
+      "ssh_user={{user `ssh_user`}}",
+    ],
+
     "vboxmanage": [
       ["modifyvm", "{{.Name}}", "--memory", "2048"],
       ["modifyvm", "{{.Name}}", "--cpus", "2"]
@@ -52,10 +57,10 @@
     "type": "shell",
     "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
     "scripts": [
-      "provisioners/shell/ruby.sh",
       "provisioners/shell/puppet.sh",
       "provisioners/shell/virtualbox.sh",
-      "provisioners/shell/vagrant.sh"
+      "provisioners/shell/vagrant.sh",
+      "provisioners/shell/clean.sh"
     ]
   }],
 

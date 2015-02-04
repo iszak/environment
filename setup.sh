@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-PACKER_VARIABLES="packer/variables.json"
+PACKER_VARIABLES="packer/variables/vagrant.json"
 UBUNTU_PRESEED="packer/config/preseed.cfg"
 VAGRANT_FILE="vagrant/Vagrantfile"
 HIERA_USER="vagrant/provisioners/puppet/hiera/users/user.yaml"

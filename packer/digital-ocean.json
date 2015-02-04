@@ -1,0 +1,31 @@
+{
+  "variables": {
+    "api_token": "",
+    "hostname": ""
+  },
+
+
+  "builders": [{
+    "type": "digitalocean",
+    "name": "{{user `hostname`}}",
+
+    "api_token": "{{user `api_token`}}",
+    "droplet_name": "{{user `hostname`}}",
+
+    "image": "ubuntu-14-04-x64",
+    "region": "London 1",
+    "size": "512MB"
+  }],
+
+
+
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "provisioners/shell/upgrade.sh",
+      "provisioners/shell/puppet.sh",
+      "provisioners/shell/users.sh",
+      "provisioners/shell/clean.sh"
+    ]
+  }]
+}

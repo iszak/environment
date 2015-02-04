@@ -29,7 +29,7 @@ Build the base vagrant box
 
 ```
 cd packer/
-packer build -var-file=variables.json template.json
+packer build -var-file=variables/vagrant.json vagrant.json
 ```
 
 
