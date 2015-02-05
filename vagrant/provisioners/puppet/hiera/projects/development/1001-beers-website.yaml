@@ -1,6 +1,0 @@
----
-project::static:
-    1001_beers_website:
-        user: vagrant
-        owner: vagrant
-        group: vagrant

@@ -1,8 +1,0 @@
----
-project::node:
-    phoenix_server:
-        user: vagrant
-        owner: vagrant
-        group: vagrant
-
-        environment: development

@@ -1,8 +1,0 @@
----
-project::static:
-    psdless:
-        user: vagrant
-        owner: vagrant
-        group: vagrant
-
-        repo_path: public/psdless

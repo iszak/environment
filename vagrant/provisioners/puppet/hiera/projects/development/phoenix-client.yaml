@@ -1,6 +1,0 @@
----
-project::static:
-    phoenix_client:
-        user: vagrant
-        owner: vagrant
-        group: vagrant
