@@ -2,6 +2,8 @@
 
 ## Installation
 
+- Clone this repository ```git clone --recursive git@github.com:iszak/environment.git```
+
 ### Vagrant
 
 - Install latest [Vagrant](https://www.vagrantup.com/)
