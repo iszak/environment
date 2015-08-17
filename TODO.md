@@ -1,6 +1,5 @@
-- Allow specifying path to private key per project
-
-- Install CrashPlan
 - Install Go
 
-- Environment / exceptions setting in config
+- Mention installing private key
+- Install dotfiles in boxen
+

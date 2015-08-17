@@ -37,7 +37,7 @@ packer build -var-file=variables/vagrant.json vagrant.json
 
 ## Puppet / Hiera
 
-Edit vagrant/provisioners/puppet/hiera/hiera.yaml and add projects you want, example below
+Edit vagrant/provisioners/puppet/environments/development/hiera.yaml and add projects you want, example below
 
 ```
 ---
@@ -72,7 +72,7 @@ Edit vagrant/provisioners/puppet/hiera/hiera.yaml and add projects you want, exa
 ```
 
 
-Create **vagrant/provisioners/puppet/hiera/private.yaml** example below
+Create **vagrant/provisioners/puppet/environments/development/hieradata/private.yaml** example below
 
 ```
 ---
